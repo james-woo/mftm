@@ -38,11 +38,20 @@ db.once('open', function callback() {
     console.log('mtfm db opened');
 });
 
+var recipeSchema = mongoose.Schema({name: String});
+var recipe = mongoose.model('Recipe', recipeSchema);
+var mongoRecipe;
+recipe.findOne().exec(function(err, recipeDoc) {
+    mongoRecipe = recipeDoc.message;
+});
+
 app.get('/partials/:partialPath', function(req, res) {
     res.render('partials/' + req.params.partialPath);
 });
 app.get('*', function(req, res) {
-    res.render('index');
+    res.render('index', {
+        mongoRecipe: mongoRecipe
+    });
 });
 
 var port = process.env.PORT || 3000;
