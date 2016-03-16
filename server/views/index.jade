@@ -1,5 +1,10 @@
 extends ../includes/layout
 
 block main-content
+    .navbar.navbar-inverse.navbar-fixed-top
+        .container
+            .navbar-header
+                a.navbar-brand(href="/") Meals For The Moment
+
     section.content
         div(ng-view)
