@@ -39,9 +39,10 @@ db.once('open', function callback() {
 });
 
 var recipeSchema = mongoose.Schema({name: String});
-var recipe = mongoose.model('Recipe', recipeSchema);
+var recipe = mongoose.model('recipes', recipeSchema);
 var mongoRecipe;
 recipe.findOne().exec(function(err, recipeDoc) {
+    console.log(recipeDoc.name);
     mongoRecipe = recipeDoc.name;
 });
 
@@ -49,8 +50,9 @@ app.get('/partials/:partialPath', function(req, res) {
     res.render('partials/' + req.params.partialPath);
 });
 app.get('*', function(req, res) {
+    console.log(mongoRecipe);
     res.render('index', {
-        mongoRecipe: mongoRecipe
+        mongo: mongoRecipe
     });
 });
 
