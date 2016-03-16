@@ -42,7 +42,7 @@ var recipeSchema = mongoose.Schema({name: String});
 var recipe = mongoose.model('Recipe', recipeSchema);
 var mongoRecipe;
 recipe.findOne().exec(function(err, recipeDoc) {
-    mongoRecipe = recipeDoc.message;
+    mongoRecipe = recipeDoc.name;
 });
 
 app.get('/partials/:partialPath', function(req, res) {
