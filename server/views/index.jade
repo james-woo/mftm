@@ -2,10 +2,16 @@ extends ../includes/layout
 
 block main-content
     .navbar.navbar-inverse.navbar-fixed-top
-        .container
+        .container-fluid
             .navbar-header
-                a.navbar-brand(href="/") Meals For The Moment
+                a.navbar-brand(href='#') Meals For The Moment
+            div
+                ul.nav.navbar-nav
+
+                #navbar-login(ng-include="'/partials/account/navbar-login'")
 
     section.content
         div(ng-view)
-    h2= mongo
+
+    footer.container.text-center
+        p &copy; 2016 Null Pointer Solutions

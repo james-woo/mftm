@@ -1,0 +1,17 @@
+ul.nav.navbar-nav.navbar-right(ng-controller="loginController")
+    li.dropdown
+        a.dropdown-toggle(ng-hide="identity.isAuthenticated()", data-toggle='dropdown', href='#')
+            | Login
+            span.caret
+        .dropdown-menu
+            form#formLogin.form.container-fluid
+                .form-group
+                    label(for='user') Name:
+                    input#user.form-control(placeholder="Username", ng-model="username")
+                .form-group
+                    label(for='password') Password:
+                    input#password.form-control(type='password', placeholder="Password", ng-model="password")
+                button#btnLogin.btn.btn-block(type='button', ng-click="signin(username, password)", data-toggle='dropdown') Login
+            .container-fluid
+                br
+                a.small(href='#') Forgot password?
