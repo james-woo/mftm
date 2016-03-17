@@ -1,6 +1,6 @@
 ul.nav.navbar-nav.navbar-right(ng-controller="loginController")
-    li.dropdown
-        a.dropdown-toggle(ng-hide="identity.isAuthenticated()", data-toggle='dropdown', href='#')
+    li.dropdown(ng-hide="identity.isAuthenticated()")
+        a.dropdown-toggle(data-toggle='dropdown', href='#')
             | Login
             span.caret
         .dropdown-menu
@@ -15,3 +15,13 @@ ul.nav.navbar-nav.navbar-right(ng-controller="loginController")
             .container-fluid
                 br
                 a.small(href='#') Forgot password?
+
+    li.dropdown(ng-show="identity.isAuthenticated()")
+        a.dropdown-toggle(href="", data-toggle="dropdown")
+            | {{identity.currentUser.firstname}}
+            b.caret
+        ul.dropdown-menu
+            li(ng-show="identity.currentUser.isAdmin()")
+                a(href="/admin/application") User Admin
+            li
+                a(href="",ng-click="signout()") Sign Out

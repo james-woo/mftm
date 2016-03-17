@@ -1,6 +1,7 @@
-angular.module('app').controller('loginController', function($scope, $http, mIdentity, mNotifier, mAuth) {
+angular.module('app').controller('loginController', function($scope, $http, mIdentity, mNotifier, mAuth, $location) {
 
     $scope.identity = mIdentity;
+
     $scope.signin = function(username, password) {
         mAuth.authenticateUser(username, password).then(function(success) {
             if(success) {
@@ -9,5 +10,14 @@ angular.module('app').controller('loginController', function($scope, $http, mIde
                 mNotifier.notify('Username/Password combination incorrect');
             }
         });
+    };
+
+    $scope.signout = function() {
+        mAuth.logoutUser().then(function() {
+            $scope.username = "";
+            $scope.password = "";
+            mNotifier.notify('You have successfully signed out!');
+            $location.path('/');
+        })
     }
 });

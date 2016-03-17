@@ -4,11 +4,11 @@ html
         title Meals For The Moment
         base(href="/")
         link(href="/favicon.ico", rel="shortcut icon", type="image/x-icon")
-        link(rel="stylesheet", href="/css/bootstrap.css")
+        link(rel="stylesheet", href="/vendor/bootstrap/dist/css/bootstrap.css")
         link(rel="stylesheet", href="/vendor/toastr/toastr.css")
         link(rel="stylesheet", href="/css/site.css")
-        link(href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css", rel="stylesheet", integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7", crossorigin="anonymous")
 
     body(ng-app='app')
         include scripts
+        include currentUser
         block main-content
