@@ -7,6 +7,11 @@ angular.module('app').config(function($routeProvider, $locationProvider) {
             auth: function(mAuth) {
                 return mAuth.authorizeCurrentUserForRoute('admin')
             }
+        },
+        user: {
+            auth: function(mAuth) {
+                return mAuth.authorizeAuthenticateUserForRoute()
+            }
         }
     };
 
@@ -21,6 +26,17 @@ angular.module('app').config(function($routeProvider, $locationProvider) {
             templateUrl: '/partials/admin/admin',
             controller: 'mAdminCtrl',
             resolve: routeRoleChecks.admin
+        })
+
+        .when('/signup', {
+            templateUrl: '/partials/account/signup',
+            controller: 'mSignupCtrl'
+        })
+
+        .when('/profile', {
+            templateUrl: '/partials/account/profile',
+            controller: 'mProfileCtrl',
+            resolve: routeRoleChecks.user
         });
 });
 

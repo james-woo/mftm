@@ -1,4 +1,6 @@
-ul.nav.navbar-nav.navbar-right(ng-controller="loginController")
+ul.nav.navbar-nav.navbar-right(ng-controller="mLoginCtrl")
+    li
+        a(href="/signup") Sign Up
     li.dropdown(ng-hide="identity.isAuthenticated()")
         a.dropdown-toggle(data-toggle='dropdown', href='#')
             | Login
@@ -23,5 +25,7 @@ ul.nav.navbar-nav.navbar-right(ng-controller="loginController")
         ul.dropdown-menu
             li(ng-show="identity.currentUser.isAdmin()")
                 a(href="/admin/application") User Admin
+            li
+                a(href="/profile") Profile
             li
                 a(href="",ng-click="signout()") Sign Out
