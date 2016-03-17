@@ -1,5 +1,6 @@
 var auth = require('./auth'),
     users = require('../controllers/users'),
+    recipes = require('../controllers/recipes'),
     mongoose = require('mongoose'),
     User = mongoose.model('User'),
     Recipe = mongoose.model('Recipe');
@@ -10,11 +11,7 @@ module.exports = function(app) {
     app.post('/api/users', users.createUser);
     app.put('/api/users', users.updateUser);
 
-    app.get('/api/recipes', auth.requiresRole('admin'), function(req,res) {
-        Recipe.find({}).exec(function(err, collection) {
-            res.send(collection);
-        })
-    });
+    app.get('/api/recipes', recipes.getRecipes);
 
     app.get('/partials/*', function(req, res) {
         res.render('../../public/app/' + req.params[0]);
@@ -24,6 +21,10 @@ module.exports = function(app) {
     app.post('/logout', function(req, res) {
         req.logout();
         res.end();
+    });
+
+    app.all('/api/*', function(req, res) {
+        res.send(404);
     });
 
     app.get('*', function(req, res) {

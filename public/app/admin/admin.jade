@@ -6,6 +6,7 @@
                 td {{user.firstname + ' ' + user.lastname}}
     .row
         h1 Recipes
+        a.btn.btn-default(href="/addrecipe") Add Recipe
         table.table
             tr(ng-repeat="recipe in recipes")
                 td {{recipe.name}}

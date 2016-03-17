@@ -1,0 +1,59 @@
+.pull-right
+    form.form-inline
+        p Search Ingredients
+            .form-group
+            input.form-control(ng-model="searchText", placeholder="Ingredients")
+
+        p Ingredient Suggestions
+            .form-group
+            button.btn.btn-success Mongoose
+            button.btn.btn-success Salt
+
+        p Omitted Ingredients
+            .form-group
+            button.btn.btn-danger Butter
+            button.btn.btn-danger Milk
+
+        p Available Equipment
+            .form-group
+            button.btn.btn-success Pan
+            button.btn.btn-success Oven
+
+        p Meal Type
+            .form-group
+                .checkbox
+                    label
+                        input(type='checkbox', value='breakfast')
+                        | &nbsp; Breakfast
+                br
+                .checkbox
+                    label
+                        input(type='checkbox', value='lunch')
+                        | &nbsp; Lunch
+                br
+                .checkbox
+                    label
+                        input(type='checkbox', value='dinner')
+                        | &nbsp; Dinner
+                br
+                .checkbox
+                    label
+                        input(type='checkbox', value='snacks')
+                        | &nbsp; Snacks
+
+        p Skill Level
+            .form-group
+                .checkbox
+                    label
+                        input(type='checkbox', value='easy')
+                        | &nbsp; Easy
+                br
+                .checkbox
+                    label
+                        input(type='checkbox', value='medium')
+                        | &nbsp; Medium
+                br
+                .checkbox
+                    label
+                        input(type='checkbox', value='hard')
+                        | &nbsp; Hard

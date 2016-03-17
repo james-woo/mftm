@@ -9,4 +9,7 @@ module.exports = function(config) {
     db.once('open', function callback() {
         console.log('mtfm db opened');
     });
+
+    userModel.createDefaultUsers();
+    recipeModel.createDefaultRecipess();
 };

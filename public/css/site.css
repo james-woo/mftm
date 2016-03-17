@@ -1,11 +1,20 @@
-body .navbar {
-  margin-bottom: 0px;
+.navbar-custom {
+  background-color: #00d4b4;
+  border-color: #00d4b4;
+  color: #fff;
+  border-radius: 0;
 }
-body .navbar-header {
-  margin-top: 5px;
+.navbar-custom .navbar-nav > li > a {
+  color: #fff;
 }
-body .navbar-brand {
-  margin-left: 10px;
+.navbar-custom .navbar-brand {
+  color: #eee;
+}
+.navbar-custom .navbar-nav > .active > a,
+.navbar-nav > .active > a:hover,
+.navbar-nav > .active > a:focus {
+  color: #fff;
+  background-color: #00d4b4;
 }
 #user-preferences {
   background-color: #fff;
@@ -29,6 +38,12 @@ body .navbar-brand {
 }
 .toast-success {
   background-color: #13987e;
+}
+.card-media {
+  background-color: #999;
+}
+md-card {
+  background-color: #fff;
 }
 footer {
   padding-left: 15px;

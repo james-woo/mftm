@@ -33,6 +33,12 @@ angular.module('app').config(function($routeProvider, $locationProvider) {
             controller: 'mSignupCtrl'
         })
 
+        .when('/addrecipe', {
+            templateUrl: '/partials/recipe/addrecipe',
+            controller: 'mRecipeCtrl',
+            resolve: routeRoleChecks.admin
+        })
+
         .when('/profile', {
             templateUrl: '/partials/account/profile',
             controller: 'mProfileCtrl',
