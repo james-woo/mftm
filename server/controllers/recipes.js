@@ -1,4 +1,5 @@
-var Recipe = require('mongoose').model('Recipe');
+var Recipe = require('mongoose').model('Recipe'),
+    ObjectId = require('mongoose').Types.ObjectId;
 
 exports.getRecipes = function(req, res) {
     Recipe.find({}).exec(function(err, collection) {
@@ -6,6 +7,15 @@ exports.getRecipes = function(req, res) {
     })
 };
 
+exports.getRecipe = function(req, res) {
+    Recipe.findOne({_id: ObjectId(req.body._id)}, function (err, recipe) {
+        if (err) return err;
+        res.send(recipe);
+    });
+};
+
+//findOne({_id:ObjectId("56ec471fe139f4b70793b11c")})
+//User.findOne({ username: 'admin' }, function (err, user) {
 exports.createRecipe = function(req, res) {
     var recipeData = req.body;
 

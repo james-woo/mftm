@@ -10,6 +10,17 @@ angular.module('app').factory('mRecipeAPI', function($http, $q, mRecipe) {
             });
 
             return dfd.promise;
+        },
+        getRecipe: function(recipeID) {
+            var dfd = $q.defer();
+            $http.post('/viewrecipe', { _id: recipeID}).then(function(response) {
+                if (response.status == 200) {
+                    dfd.resolve(response.data);
+                } else {
+                    dfd.resolve(false);
+                }
+            });
+            return dfd.promise;
         }
     }
 });

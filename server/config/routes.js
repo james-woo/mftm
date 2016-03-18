@@ -12,12 +12,14 @@ module.exports = function(app) {
     app.put('/api/users', users.updateUser);
 
     app.get('/api/recipes', recipes.getRecipes);
-    app.post('/api/recipes', recipes.createRecipe);
+    app.post('/api/recipes', auth.requiresRole('admin'), recipes.createRecipe);
     app.put('/api/recipes', recipes.updateRecipe);
 
     app.get('/partials/*', function(req, res) {
         res.render('../../public/app/' + req.params[0]);
     });
+
+    app.post('/viewrecipe', recipes.getRecipe);
 
     app.post('/login', auth.authenticate);
     app.post('/logout', function(req, res) {

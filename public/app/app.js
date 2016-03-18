@@ -39,6 +39,11 @@ angular.module('app').config(function($routeProvider, $locationProvider) {
             resolve: routeRoleChecks.admin
         })
 
+        .when('/viewrecipe/:recipeID', {
+            templateUrl: '/partials/recipe/viewrecipe',
+            controller: 'mRecipeShowCtrl'
+        })
+
         .when('/profile', {
             templateUrl: '/partials/account/profile',
             controller: 'mProfileCtrl',

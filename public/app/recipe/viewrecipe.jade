@@ -1,11 +1,11 @@
 md-content.md-padding(layout-xs='column', layout='row')
-    div(flex-xs='', flex-gt-xs='50', layout='column', ng-repeat="recipe in recipes | filter:searchText")
-        a.view-recipe-link(href="/viewrecipe/{{recipe._id}}")
+    div(flex-xs='', flex-gt-xs='50', layout='column')
             md-card
                 md-card-title
                     md-card-title-text
                         span.md-headline {{recipe.name}}
                         br
+                        p Description: {{recipe.description}}
                         p Difficulty: {{recipe.difficulty}}
                         p Season: {{recipe.season}}
                         p Meal Type: {{recipe.meal_type}}

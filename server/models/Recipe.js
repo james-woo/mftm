@@ -1,5 +1,4 @@
-var mongoose = require('mongoose'),
-    encrypt = require('../utilities/encryption');
+var mongoose = require('mongoose');
 
 var recipeSchema = mongoose.Schema({
     name: {type:String, required:'{PATH} is required!'},
@@ -8,7 +7,7 @@ var recipeSchema = mongoose.Schema({
     equipment: {type:String, required:'{PATH} is required!'},
     ingredients: {type:String, required:'{PATH} is required!'},
     season: {type:String, required:'{PATH} is required!'},
-    meal_type: {type:String, required:'{PATH} is required!'},
+    meal_type: {type:String, required:'{PATH} is required!'}
 });
 
 var Recipe = mongoose.model('Recipe', recipeSchema);
