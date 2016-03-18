@@ -5,9 +5,9 @@ var recipeSchema = mongoose.Schema({
     name: {type:String, required:'{PATH} is required!'},
     description: {type:String, required:'{PATH} is required!'},
     difficulty: {type:String, required:'{PATH} is required!'},
-    equipment: {type:[String], required:'{PATH} is required!'},
-    ingredients: {type:[String], required:'{PATH} is required!'},
-    season: {type:[String], required:'{PATH} is required!'},
+    equipment: {type:String, required:'{PATH} is required!'},
+    ingredients: {type:String, required:'{PATH} is required!'},
+    season: {type:String, required:'{PATH} is required!'},
     meal_type: {type:String, required:'{PATH} is required!'},
 });
 
@@ -19,8 +19,8 @@ function createDefaultRecipess() {
                 name: 'Cooked Mongoose',
                 description: 'Deliciousness served to you',
                 difficulty: 'Medium',
-                equipment: ['Oven', 'Pan'],
-                ingredients: ['Mongoose', 'Salt'],
+                equipment: 'Oven, Pan',
+                ingredients: 'Mongoose, Salt',
                 season: 'Winter',
                 meal_type: 'Dinner'
             });

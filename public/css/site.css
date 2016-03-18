@@ -1,6 +1,6 @@
 .navbar-custom {
-  background-color: #00d4b4;
-  border-color: #00d4b4;
+  background-color: #00bfa5;
+  border-color: #00bfa5;
   color: #fff;
   border-radius: 0;
 }
@@ -10,11 +10,31 @@
 .navbar-custom .navbar-brand {
   color: #eee;
 }
+.navbar-inverse .navbar-nav > .open > a,
+.navbar-inverse .navbar-nav > .open > a:hover,
+.navbar-inverse .navbar-nav > .open > a:focus {
+  color: #fff;
+  background-color: #00695c;
+}
 .navbar-custom .navbar-nav > .active > a,
 .navbar-nav > .active > a:hover,
 .navbar-nav > .active > a:focus {
   color: #fff;
-  background-color: #00d4b4;
+  background-color: #00bfa5;
+}
+.btn-custom-include {
+  margin: 2px;
+  background-color: #00bfa5;
+  color: #fff;
+}
+.btn-custom-exclude {
+  margin: 2px;
+  background: #ef5350;
+  color: #fff;
+}
+#btnLogin {
+  color: #fff;
+  background-color: #00695c;
 }
 #user-preferences {
   background-color: #fff;

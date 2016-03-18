@@ -12,6 +12,8 @@ module.exports = function(app) {
     app.put('/api/users', users.updateUser);
 
     app.get('/api/recipes', recipes.getRecipes);
+    app.post('/api/recipes', recipes.createRecipe);
+    app.put('/api/recipes', recipes.updateRecipe);
 
     app.get('/partials/*', function(req, res) {
         res.render('../../public/app/' + req.params[0]);
@@ -24,7 +26,7 @@ module.exports = function(app) {
     });
 
     app.all('/api/*', function(req, res) {
-        res.send(404);
+        res.sendStatus(404);
     });
 
     app.get('*', function(req, res) {

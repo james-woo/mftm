@@ -1,6 +1,5 @@
-
 md-content.md-padding(layout-xs='column', layout='row')
-    div(flex-xs='', flex-gt-xs='50', layout='column')(ng-repeat="recipe in recipes | filter:searchText")
+    div(flex-xs='', flex-gt-xs='50', layout='column', ng-repeat="recipe in recipes | filter:searchText")
         md-card
             md-card-title
                 md-card-title-text

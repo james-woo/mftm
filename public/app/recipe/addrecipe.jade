@@ -1,83 +1,91 @@
 .container
     .well
-        form.form-horizontal(name="recipeForm")
+        form.form-horizontal(name="recipeCreationForm")
             fieldset
+                // Form Name
                 legend Recipe Creation
+                // Text input
                 .form-group
-                    label.col-md-2.control-label(for="name") Name
-                    .col-md-10
-                        input.form-control(name="name", type="text", placeholder="Recipe Name", ng-model="name", required)
+                    label.col-md-4.control-label(for='recipe-name') Name
+                    .col-md-4
+                        input#recipe-name.form-control.input-md(name='recipe-name', type='text', placeholder='name', ng-model="name", required)
+                        span.help-block Name of recipe
+                // Textarea
                 .form-group
-                    label.col-md-2.control-label(for="description") Description
-                    .col-md-10
-                        input.form-control(name="description", type="text", placeholder="Description", ng-model="description", required)
+                    label.col-md-4.control-label(for='recipe-description') Description
+                    .col-md-4
+                        textarea#recipe-description.form-control(name='recipe-description', ng-model="description") Description of recipe including instructions
+                // Multiple Radios
                 .form-group
-                    .form-group
+                    label.col-md-4.control-label(for='difficulty-radios') Difficulty
+                    .col-md-4
                         .radio
-                            label
-                                input(type='radio', value='easy', checked="checked")
-                                | &nbsp; Easy
-                        br
+                            label(for='difficulty-radios-0')
+                                input#difficulty-radios-0(type='radio', name='radios', value='easy', ng-model="difficulty.value", checked='checked')
+                                |       Easy
                         .radio
-                            label
-                                input(type='radio', value='medium')
-                                | &nbsp; Medium
-                        br
+                            label(for='difficulty-radios-1')
+                                input#difficulty-radios-1(type='radio', name='radios', value='medium', ng-model="difficulty.value")
+                                |       Medium
                         .radio
-                            label
-                                input(type='radio', value='hard')
-                                | &nbsp; Hard
+                            label(for='difficulty-radios-2')
+                                input#difficulty-radios-2(type='radio', name='radios', value='hard', ng-model="difficulty.value")
+                                |       Hard
+                // Text input
                 .form-group
-                    label.col-md-2.control-label(for="equipment") Equipment Required
-                    .col-md-10
-                        input.form-control(name="equipment", type="text", placeholder="Comma separated equipment list", ng-model="equipment")
+                    label.col-md-4.control-label(for='ingredient-list') Ingredients
+                    .col-md-4
+                        input#ingredient-list.form-control.input-md(name='ingredient-list', type='text', placeholder='ingredients', ng-model="ingredients", required)
+                        span.help-block Comma separated list of ingredients
+                // Text input
                 .form-group
-                    label.col-md-2.control-label(for="ingredients") Ingredients
-                    .col-md-10
-                        input.form-control(name="ingredients", type="text", placeholder="Comma separated ingredient list", ng-model="ingredient")
+                    label.col-md-4.control-label(for='equipment-list') Equipment
+                    .col-md-4
+                        input#equipment-list.form-control.input-md(name='equipment-list', type='text', placeholder='equipment required', ng-model="equipment" required)
+                        span.help-block Comma separated list of equipment
+                // Multiple Checkboxes
                 .form-group
-                    .checkbox
-                        label
-                            input(type='checkbox', value='winter')
-                            | &nbsp; Winter
-                    br
-                    .checkbox
-                        label
-                            input(type='checkbox', value='spring')
-                            | &nbsp; Spring
-                    br
-                    .checkbox
-                        label
-                            input(type='checkbox', value='summer')
-                            | &nbsp; Summer
-                    br
-                    .checkbox
-                        label
-                            input(type='checkbox', value='fall')
-                            | &nbsp; Fall
+                    label.col-md-4.control-label(for='season-checkboxes') Season
+                    .col-md-4
+                        .checkbox
+                            label(for='season-checkboxes-0')
+                                input#season-checkboxes-0(type='checkbox', name='season-checkboxes-0', value='winter', ng-model="season.winter", ng-true-value="'winter'" ng-false-value="''")
+                                |       Winter
+                        .checkbox
+                            label(for='season-checkboxes-1')
+                                input#season-checkboxes-1(type='checkbox', name='season-checkboxes-1', value='spring', ng-model="season.spring", ng-true-value="'spring'" ng-false-value="''")
+                                |       Spring
+                        .checkbox
+                            label(for='season-checkboxes-2')
+                                input#season-checkboxes-2(type='checkbox', name='season-checkboxes-2', value='summer', ng-model="season.summer", ng-true-value="'summer'" ng-false-value="''")
+                                |       Summer
+                        .checkbox
+                            label(for='season-checkboxes-3')
+                                input#season-checkboxes-3(type='checkbox', name='season-checkboxes-3', value='fall', ng-model="season.fall", ng-true-value="'fall'" ng-false-value="''")
+                                |       Fall
+                // Multiple Checkboxes
                 .form-group
-                    .checkbox
-                        label
-                            input(type='checkbox', value='breakfast')
-                            | &nbsp; Breakfast
-                    br
-                    .checkbox
-                        label
-                            input(type='checkbox', value='lunch')
-                            | &nbsp; Lunch
-                    br
-                    .checkbox
-                        label
-                            input(type='checkbox', value='dinner')
-                            | &nbsp; Dinner
-                    br
-                    .checkbox
-                        label
-                            input(type='checkbox', value='snacks')
-                            | &nbsp; Snacks
+                    label.col-md-4.control-label(for='mealtype-checkboxes') Meal Type
+                    .col-md-4
+                        .checkbox
+                            label(for='mealtype-checkboxes-0')
+                                input#mealtype-checkboxes-0(type='checkbox', name='mealtype-checkboxes-0', value='breakfast', ng-model="mealtype.breakfast", ng-true-value="'breakfast'" ng-false-value="''")
+                                |       Breakfast
+                        .checkbox
+                            label(for='mealtype-checkboxes-1')
+                                input#mealtype-checkboxes-1(type='checkbox', name='mealtype-checkboxes-1', value='lunch', ng-model="mealtype.lunch", ng-true-value="'lunch'" ng-false-value="''")
+                                |       Lunch
+                        .checkbox
+                            label(for='mealtype-checkboxes-2')
+                                input#mealtype-checkboxes-2(type='checkbox', name='mealtype-checkboxes-2', value='dinner', ng-model="mealtype.dinner", ng-true-value="'dinner'" ng-false-value="''")
+                                |       Dinner
+                        .checkbox
+                            label(for='mealtype-checkboxes-3')
+                                input#mealtype-checkboxes-3(type='checkbox', name='mealtype-checkboxes-3', value='snacks', ng-model="mealtype.snacks", ng-true-value="'snacks'" ng-false-value="''")
+                                |       Snacks
                 .form-group
                     .col-md-10.col-md-offset-2
-                        .pull-right
-                            button.btn.btn-default(ng-click="addrecipe()", ng-disabled="signupForm.$invalid") Submit
+                        .pull-left
+                            button.btn.btn-default(ng-click="create()", ng-disabled="recipeCreationForm.$invalid") Create
                             | &nbsp;
                             a.btn.btn-default(href="/") Cancel

@@ -7,7 +7,7 @@ angular.module('app').controller('mLoginCtrl', function($scope, $http, mIdentity
             if(success) {
                 mNotifier.notify('You have successfully signed in!');
             } else {
-                mNotifier.notify('Username/Password combination incorrect');
+                mNotifier.error('Username/Password combination incorrect');
             }
         });
     };
