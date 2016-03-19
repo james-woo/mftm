@@ -8,12 +8,16 @@
                 p Latitude: {{latitude}} Longitude: {{longitude}}
             .modal-footer.text-center
                 p &copy; 2016 Null Pointer Solutions
-                button.btn.btn-default(type='button', data-dismiss='modal', ng-click="closeMap()") Close
+                button.btn.btn-default(type='button', data-dismiss='modal') Cancel
                 button.btn.btn-custom-include(type='button', data-dismiss='modal', ng-click="closeMap()") Save changes
 
+#mtfm-header.container-fluid
+    h3 Meals selected just for you.
+    p Refine your suggested recipes with your ingredients, kitchen equipment, meal type, and skill level!
+
 .container-fluid
-    #user-preferences.col-xs-3
+    #user-preferences.col-xs-4
         #user-preferences-list(ng-include="'/partials/recipe/user'")
 
-    #recipes.col-xs-9
+    #recipes.col-xs-8
         #recipes-list(ng-include="'/partials/recipe/recipes'")

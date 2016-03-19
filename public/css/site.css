@@ -1,9 +1,9 @@
 #map {
-  height: 600px;
+  height: 400px;
   width: 100%;
 }
 .modal-body {
-  height: 700px;
+  height: 500px;
 }
 .navbar-custom {
   background-color: #00bfa5;
@@ -50,6 +50,18 @@
   background-color: #f7f7f7;
   padding-left: 0px;
   padding-right: 0px;
+}
+#mtfm-header {
+  background-color: #f7f7f7;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-left: 20px;
+  margin-right: 30px;
+  margin-bottom: 15px;
+}
+#user-preferences {
+  margin-top: -8px;
+  margin-left: -15px;
 }
 #navbar-login {
   margin-right: 10px;
