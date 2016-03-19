@@ -3,6 +3,14 @@
         md-card-title
             md-card-title-text
                 form.form-inline
+                    p Your location
+                    p {{location}}
+                        .form-group
+                        button.btn-custom-include.btn Change
+    md-card
+        md-card-title
+            md-card-title-text
+                form.form-inline
                     p Search Ingredients
                         .form-group
                         input.form-control(ng-model="searchText", placeholder="Ingredients")

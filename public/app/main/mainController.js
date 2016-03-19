@@ -1,9 +1,11 @@
 angular.module('app').controller('mainController', function($http, $scope, mRecipe, mCookies) {
     L.mapbox.accessToken = 'pk.eyJ1IjoiY3BkbGF0bSIsImEiOiJjaWxkZTR1bjgwZWMzdmFtYzd4ajhjcjRnIn0.-y57DqhBHm0jg2-v1JI-UQ';
     var marker;
-    var map = L.mapbox.map('map', 'mapbox.streets');
-    $scope.latitude = 0.0;
-    $scope.longitude = 0.0;
+    var map = L.mapbox.map('map', 'mapbox.streets'),
+        geocoder = L.mapbox.geocoder('mapbox.places');
+    $scope.latitude = mCookies.read('latitude');
+    $scope.longitude = mCookies.read('longitude');
+    $scope.location = mCookies.read('location');
 
     function geo_success(position) {
         $scope.latitude = position.coords.latitude;
@@ -47,8 +49,6 @@ angular.module('app').controller('mainController', function($http, $scope, mReci
         timeout           : 27000
     };
 
-    var wpid = navigator.geolocation.watchPosition(geo_success, geo_error, geo_options);
-
     $scope.recipes = mRecipe.query();
 
     $scope.sortOptions = [
@@ -59,13 +59,23 @@ angular.module('app').controller('mainController', function($http, $scope, mReci
     $scope.includeIngredients = $scope.sortOptions[0].value;
 
     $scope.init = function () {
-        var userLocation = mCookies.read('location');
-        if(userLocation == undefined)
+        if($scope.latitude == undefined || $scope.longitude == undefined) {
+            var wpid = navigator.geolocation.watchPosition(geo_success, geo_error, geo_options);
             $('#location-modal').modal('show');
+        } else {
+            geocoder.reverseQuery(
+                { lat: parseFloat(mCookies.read('latitude')), lon: parseFloat(mCookies.read('longitude')) },
+                function(err, res) {
+                    $scope.location = res.features[0].place_name
+                    $scope.$apply();
+                });
+        }
+
     };
 
     $scope.closeMap = function() {
         map.remove();
-        mCookies.create('location', $scope.latitude + ', ' + $scope.longitude);
+        mCookies.create('latitude', $scope.latitude);
+        mCookies.create('longitude', $scope.longitude);
     }
 });
