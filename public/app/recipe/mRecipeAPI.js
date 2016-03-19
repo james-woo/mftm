@@ -14,7 +14,7 @@ angular.module('app').factory('mRecipeAPI', function($http, $q, mRecipe) {
         getRecipe: function(recipeID) {
             var dfd = $q.defer();
             $http.post('/viewrecipe', { _id: recipeID}).then(function(response) {
-                if (response.status == 200) {
+                if (response.status) {
                     dfd.resolve(response.data);
                 } else {
                     dfd.resolve(false);

@@ -1,6 +1,7 @@
 var mongoose = require('mongoose'),
     userModel = require('../models/User'),
-    recipeModel = require('../models/Recipe');
+    recipeModel = require('../models/Recipe'),
+    ingredientModel = require('../models/Ingredient');
 
 module.exports = function(config) {
     mongoose.connect(config.db);
@@ -11,5 +12,6 @@ module.exports = function(config) {
     });
 
     userModel.createDefaultUsers();
-    recipeModel.createDefaultRecipess();
+    recipeModel.createDefaultRecipes();
+    ingredientModel.createDefaultIngredients();
 };

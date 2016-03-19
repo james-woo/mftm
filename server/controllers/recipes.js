@@ -14,8 +14,6 @@ exports.getRecipe = function(req, res) {
     });
 };
 
-//findOne({_id:ObjectId("56ec471fe139f4b70793b11c")})
-//User.findOne({ username: 'admin' }, function (err, user) {
 exports.createRecipe = function(req, res) {
     var recipeData = req.body;
 

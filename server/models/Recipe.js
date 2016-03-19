@@ -11,7 +11,7 @@ var recipeSchema = mongoose.Schema({
 });
 
 var Recipe = mongoose.model('Recipe', recipeSchema);
-function createDefaultRecipess() {
+function createDefaultRecipes() {
     Recipe.find({}).exec(function (err, collection) {
         if (collection.length == 0) {
             Recipe.create({
@@ -27,4 +27,4 @@ function createDefaultRecipess() {
     });
 }
 
-exports.createDefaultRecipess = createDefaultRecipess;
+exports.createDefaultRecipes = createDefaultRecipes;

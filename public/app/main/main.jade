@@ -1,3 +1,16 @@
+#location-modal.modal.fade(ng-init="init()", tabindex='-1', role='dialog', aria-labelledby='user-location-modal')
+    .modal-dialog.modal-lg
+        .modal-content
+            .modal-header
+                h4#user-location-modal.modal-title Please enter your location
+            .modal-body
+                #map
+                p Latitude: {{latitude}} Longitude: {{longitude}}
+            .modal-footer.text-center
+                p &copy; 2016 Null Pointer Solutions
+                button.btn.btn-default(type='button', data-dismiss='modal', ng-click="closeMap()") Close
+                button.btn.btn-custom-include(type='button', data-dismiss='modal', ng-click="closeMap()") Save changes
+
 .container-fluid
     #user-preferences.col-xs-3
         #user-preferences-list(ng-include="'/partials/recipe/user'")
