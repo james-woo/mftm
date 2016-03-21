@@ -7,7 +7,7 @@ module.exports = {
         port: process.env.PORT || 3000
     },
     production: {
-        db: 'mongodb://admin:mftmadmin@ds015899.mlab.com:15899/mftm',
+        db: 'mongodb://admin:admin@ds021289.mlab.com:21289/mftm',
         rootPath: rootPath,
         port: process.env.PORT || 80
     }
