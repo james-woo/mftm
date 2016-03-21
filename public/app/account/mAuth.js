@@ -29,6 +29,18 @@ angular.module('app').factory('mAuth', function($http, mIdentity, $q, mUser) {
             return dfd.promise;
         },
 
+        deleteUser: function(userID) {
+            var dfd = $q.defer();
+
+            $http.delete('/api/users/' + userID).then(function() {
+                dfd.resolve();
+            }, function(response) {
+                dfd.reject(response.data.reason);
+            });
+
+            return dfd.promise;
+        },
+
         updateCurrentUser: function(newUserData) {
             var dfd = $q.defer();
             var clone = angular.copy(mIdentity.currentUser);

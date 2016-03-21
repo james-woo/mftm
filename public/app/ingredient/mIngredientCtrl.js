@@ -7,7 +7,7 @@ ingredientCtrl.controller('mIngredientCtrl', function($scope, mIngredientAPI, mI
     $scope.create = function() {
         var newIngredientData = {
             name: $scope.name,
-            local: $scope.local,
+            local: $scope.local
         };
 
         mIngredientAPI.createIngredient(newIngredientData).then(function() {

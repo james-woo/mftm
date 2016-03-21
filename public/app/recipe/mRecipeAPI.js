@@ -21,6 +21,17 @@ angular.module('app').factory('mRecipeAPI', function($http, $q, mRecipe) {
                 }
             });
             return dfd.promise;
+        },
+        deleteRecipe: function(recipeID) {
+            var dfd = $q.defer();
+
+            $http.delete('/api/recipes/' + recipeID).then(function() {
+                dfd.resolve();
+            }, function(response) {
+                dfd.reject(response.data.reason);
+            });
+
+            return dfd.promise;
         }
     }
 });

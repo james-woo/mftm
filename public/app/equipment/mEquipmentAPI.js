@@ -1,9 +1,9 @@
-angular.module('app').factory('mIngredientAPI', function($http, $q, mIngredient) {
+angular.module('app').factory('mEquipmentAPI', function($http, $q, mEquipment) {
     return {
-        createIngredient: function(newIngredientData) {
-            var newIngredient = new mIngredient(newIngredientData);
+        createEquipment: function(newEquipmentData) {
+            var newEquipment = new mEquipment(newEquipmentData);
             var dfd = $q.defer();
-            newIngredient.$save().then(function() {
+            newEquipment.$save().then(function() {
                 dfd.resolve();
             }, function(response) {
                 dfd.reject(response.data.reason);
@@ -11,10 +11,10 @@ angular.module('app').factory('mIngredientAPI', function($http, $q, mIngredient)
 
             return dfd.promise;
         },
-        deleteIngredient: function(ingredientID) {
+        deleteEquipment: function(equipmentID) {
             var dfd = $q.defer();
 
-            $http.delete('/api/ingredients/' + ingredientID).then(function() {
+            $http.delete('/api/equipment/' + equipmentID).then(function() {
                 dfd.resolve();
             }, function(response) {
                 dfd.reject(response.data.reason);

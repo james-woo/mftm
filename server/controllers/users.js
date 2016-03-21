@@ -1,5 +1,6 @@
 var User = require('mongoose').model('User'),
-    encrypt = require('../utilities/encryption');
+    encrypt = require('../utilities/encryption'),
+    ObjectId = require('mongoose').Types.ObjectId;;
 
 exports.getUsers = function(req, res) {
         User.find({}).exec(function(err, collection) {
@@ -25,6 +26,22 @@ exports.createUser = function(req, res, next) {
             res.send(user);
         })
     })
+};
+
+exports.deleteUser = function(id) {
+    User.findOne({_id: id}, function (err, user) {
+        if(err){
+            return err;
+        } else{
+            if(!user){
+                // the given user does not exist
+                return 404;
+            } else{
+                user.remove(err);
+                return 200;
+            }
+        }
+    });
 };
 
 exports.updateUser = function(req, res) {

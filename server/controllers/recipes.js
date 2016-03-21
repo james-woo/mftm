@@ -29,6 +29,22 @@ exports.createRecipe = function(req, res) {
     })
 };
 
+exports.deleteRecipe = function(id) {
+    Recipe.findOne({_id: id}, function (err, recipe) {
+        if(err){
+            return err;
+        } else{
+            if(!recipe){
+                // the given user does not exist
+                return 404;
+            } else{
+                recipe.remove(err);
+                return 200;
+            }
+        }
+    });
+};
+
 exports.updateRecipe = function(req, res) {
     var recipeUpdates = req.body;
 

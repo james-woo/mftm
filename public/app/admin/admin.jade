@@ -1,22 +1,66 @@
 .container
     .row
         h1 Users
-        table.table
-            tr(ng-repeat="user in users")
-                td {{user.firstname + ' ' + user.lastname}}
+        table.table.table-striped.table-hover.table-users
+            thead
+                tr
+                    th First Name
+                    th Last Name
+                    th Username
+                    th Roles
+                    th Delete User
+            tbody
+                tr(ng-repeat="user in users")
+                    td {{user.firstname}}
+                    td {{user.lastname}}
+                    td {{user.username}}
+                    td {{user.roles}}
+                    td
+                        button.btn.btn-custom-exclude(type='button', ng-click="deleteuser(user._id)") Delete
     .row
         h1 Recipes
         a.btn.btn-default(href="/addrecipe") Add Recipe
         table.table
-            tr(ng-repeat="recipe in recipes")
-                td {{recipe.name}}
-                td {{recipe.difficulty}}
-                td {{recipe.season}}
-                td {{recipe.meal_type}}
+            thead
+                tr
+                    th Name
+                    th Difficulty
+                    th Season
+                    th Meal Type
+                    th Delete
+            tbody
+                tr(ng-repeat="recipe in recipes")
+                    td {{recipe.name}}
+                    td {{recipe.difficulty}}
+                    td {{recipe.season}}
+                    td {{recipe.meal_type}}
+                    td
+                        button.btn.btn-custom-exclude(type='button', ng-click="deleterecipe(recipe._id)") Delete
     .row
         h1 Ingredients
         a.btn.btn-default(href="/addingredient") Add Ingredient
         table.table
-            tr(ng-repeat="ingredient in ingredients")
-                td {{ingredient.name}}
-                td {{ingredient.local}}
+            thead
+                tr
+                    th Name
+                    th Region
+                    th Delete
+            tbody
+                tr(ng-repeat="ingredient in ingredients")
+                    td {{ingredient.name}}
+                    td {{ingredient.local}}
+                    td
+                        button.btn.btn-custom-exclude(type='button', ng-click="deleteingredient(ingredient._id)") Delete
+    .row
+        h1 Equipment
+        a.btn.btn-default(href="/addequipment") Add Equipment
+        table.table
+            thead
+                tr
+                    th Name
+                    th Delete
+            tbody
+                tr(ng-repeat="e in equipment")
+                    td {{e.name}}
+                    td
+                        button.btn.btn-custom-exclude(type='button', ng-click="deleteequipment(e._id)") Delete

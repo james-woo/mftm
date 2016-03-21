@@ -1,0 +1,18 @@
+.container
+    .well
+        form.form-horizontal(name="EquipmentCreationForm")
+            fieldset
+                // Form Name
+                legend Equipment Creation
+                // Text input
+                .form-group
+                    label.col-md-4.control-label(for='equipment-name') Name
+                    .col-md-4
+                        input#equipment-name.form-control.input-md(name='equipment-name', type='text', placeholder='name', ng-model="name", required)
+                        span.help-block Name of equipment
+                .form-group
+                    .col-md-10.col-md-offset-2
+                        .pull-left
+                            button.btn.btn-default(ng-click="create()", ng-disabled="equipmentCreationForm.$invalid") Create
+                            | &nbsp;
+                            a.btn.btn-default(href="/") Cancel

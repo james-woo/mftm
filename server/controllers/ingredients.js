@@ -22,6 +22,22 @@ exports.createIngredient = function(req, res) {
     })
 };
 
+exports.deleteIngredient = function(id) {
+    Ingredient.findOne({_id: id}, function (err, ingredient) {
+        if(err){
+            return err;
+        } else{
+            if(!ingredient){
+                // the given user does not exist
+                return 404;
+            } else{
+                ingredient.remove(err);
+                return 200;
+            }
+        }
+    });
+};
+
 exports.updateIngredient = function(req, res) {
     var ingredientUpdates = req.body;
 
