@@ -1,4 +1,4 @@
-#location-modal.modal.fade(ng-init="init()", tabindex='-1', role='dialog', aria-labelledby='user-location-modal')
+#location-modal.modal.fade(ng-init="initLocation()", tabindex='-1', role='dialog', aria-labelledby='user-location-modal')
     .modal-dialog.modal-lg
         .modal-content
             .modal-header
@@ -12,12 +12,11 @@
                 button.btn.btn-custom-include(type='button', data-dismiss='modal', ng-click="closeMap()") Save changes
 
 #mtfm-header.container-fluid
-    h3 Meals selected just for you.
+    h3 Meals for you, Meals for the moment.
     p Refine your suggested recipes with your ingredients, kitchen equipment, meal type, and skill level!
 
 .container-fluid
     #user-preferences.col-xs-4
-        #user-preferences-list(ng-include="'/partials/recipe/user'")
-
+        #user-preferences-list(ng-init="initPreferences()", ng-include="'/partials/recipe/user'")
     #recipes.col-xs-8
         #recipes-list(ng-include="'/partials/recipe/recipes'")

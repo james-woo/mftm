@@ -3,7 +3,7 @@
         md-card-title
             md-card-title-text
                 form.form-inline
-                    p Your location
+                    p Your Location
                     p {{location}}
                         .form-group
                         button.btn-custom-include.btn(ng-click="changeLocation()") Change
@@ -13,15 +13,20 @@
                 form.form-inline
                     p Search Ingredients
                         .form-group
-                        input.form-control(ng-model="searchText", placeholder="Ingredients")
+                        input.form-control(type='text', autocomplete='true', ng-model='ingredientInput', placeholder='Ingredients', typeahead='ingredients', typeahead-callback='filterIngredients')
+                        p You selected: {{ingredient.name}}
                     p Ingredient Suggestions
-                        .form-group
-                        button.btn-custom-include.btn Mongoose
-                        button.btn-custom-include.btn Salt
+                        br
+                        ng-form(data-ng-repeat="suggestion in suggestions")
+                            button.btn-custom-include.btn(ng-click="removeSuggestion(suggestion)") {{suggestion}}
     md-card
         md-card-title
             md-card-title-text
                 form.form-inline
+                    p Omit Ingredients
+                        .form-group
+                        input.form-control(type='text', autocomplete='false', ng-model='omitInput', placeholder='Ingredients', typeahead='omitted', typeahead-callback='filterOmitted')
+                        p You selected: {{omit.name}}
                     p Omitted Ingredients
                         .form-group
                         button.btn-custom-exclude.btn Butter
@@ -32,9 +37,10 @@
         md-card-title
             md-card-title-text
                 form.form-inline
-                    p Search Equipment
+                    p Equipment
                         .form-group
-                        input.form-control(ng-model="searchText", placeholder="Equipment")
+                        input.form-control(type='text', autocomplete='false', ng-model='equipmentInput', placeholder='Equipment', typeahead='equipment', typeahead-callback='filterEquipment')
+                        p You selected: {{equipment.name}}
                     p Your Equipment
                         .form-group
                         button.btn-custom-include.btn Pan
@@ -42,38 +48,40 @@
     md-card
         md-card-title
             md-card-title-text
+                .form-group
                     p Meal Type
-                        .form-group
-                            .checkbox
-                                label
-                                    input(type='checkbox', value='breakfast')
-                                    | &nbsp; Breakfast
-                            .checkbox
-                                label
-                                    input(type='checkbox', value='lunch')
-                                    | &nbsp; Lunch
-                            .checkbox
-                                label
-                                    input(type='checkbox', value='dinner')
-                                    | &nbsp; Dinner
-                            .checkbox
-                                label
-                                    input(type='checkbox', value='snacks')
-                                    | &nbsp; Snacks
+                    .col-md-4
+                        .checkbox
+                            label(for='mealtype-checkboxes-0')
+                                input#mealtype-checkboxes-0(type='checkbox', ng-model="mealtypeCheck.breakfast")
+                                |       Breakfast
+                        .checkbox
+                            label(for='mealtype-checkboxes-1')
+                                input#mealtype-checkboxes-1(type='checkbox', ng-model="mealtypeCheck.lunch")
+                                |       Lunch
+                        .checkbox
+                            label(for='mealtype-checkboxes-2')
+                                input#mealtype-checkboxes-2(type='checkbox', ng-model="mealtypeCheck.dinner")
+                                |       Dinner
+                        .checkbox
+                            label(for='mealtype-checkboxes-3')
+                                input#mealtype-checkboxes-3(type='checkbox', ng-model="mealtypeCheck.snacks")
+                                |       Snacks
     md-card
         md-card-title
             md-card-title-text
-                    p Skill Level
-                        .form-group
-                            .checkbox
-                                label
-                                    input(type='checkbox', value='easy')
-                                    | &nbsp; Easy
-                            .checkbox
-                                label
-                                    input(type='checkbox', value='medium')
-                                    | &nbsp; Medium
-                            .checkbox
-                                label
-                                    input(type='checkbox', value='hard')
-                                    | &nbsp; Hard
+                .form-group
+                    p Difficulty
+                    .col-md-4
+                        .checkbox
+                            label(for='difficulty-checkboxes-0')
+                                input#difficulty-checkboxes-0(type='checkbox', ng-model="difficultyCheck.easy")
+                                |       I can make cereal
+                        .checkbox
+                            label(for='difficulty-checkboxes-1')
+                                input#difficulty-checkboxes-1(type='checkbox', ng-model="difficultyCheck.medium")
+                                |       Average
+                        .checkbox
+                            label(for='difficulty-checkboxes-2')
+                                input#difficulty-checkboxes-2(type='checkbox', ng-model="difficultyCheck.hard")
+                                |       Iron Chef

@@ -1,0 +1,24 @@
+.container
+    .well
+        form.form-horizontal(name="ingredientCreationForm")
+            fieldset
+                // Form Name
+                legend Ingredient Creation
+                // Text input
+                .form-group
+                    label.col-md-4.control-label(for='ingredient-name') Name
+                    .col-md-4
+                        input#ingredient-name.form-control.input-md(name='ingredient-name', type='text', placeholder='name', ng-model="name", required)
+                        span.help-block Name of ingredient
+                // Text input
+                .form-group
+                    label.col-md-4.control-label(for='ingredient-local') Local
+                    .col-md-4
+                        input#ingredient-local.form-control.input-md(name='ingredient-local', type='text', placeholder='local', ng-model="local", required)
+                        span.help-block Ingredient local to
+                .form-group
+                    .col-md-10.col-md-offset-2
+                        .pull-left
+                            button.btn.btn-default(ng-click="create()", ng-disabled="ingredientCreationForm.$invalid") Create
+                            | &nbsp;
+                            a.btn.btn-default(href="/") Cancel

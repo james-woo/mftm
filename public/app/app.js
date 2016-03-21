@@ -39,6 +39,12 @@ angular.module('app').config(function($routeProvider, $locationProvider) {
             resolve: routeRoleChecks.admin
         })
 
+        .when('/addingredient', {
+            templateUrl: '/partials/ingredient/addingredient',
+            controller: 'mIngredientCtrl',
+            resolve: routeRoleChecks.admin
+        })
+
         .when('/viewrecipe/:recipeID', {
             templateUrl: '/partials/recipe/viewrecipe',
             controller: 'mRecipeShowCtrl'

@@ -10,3 +10,13 @@
         table.table
             tr(ng-repeat="recipe in recipes")
                 td {{recipe.name}}
+                td {{recipe.difficulty}}
+                td {{recipe.season}}
+                td {{recipe.meal_type}}
+    .row
+        h1 Ingredients
+        a.btn.btn-default(href="/addingredient") Add Ingredient
+        table.table
+            tr(ng-repeat="ingredient in ingredients")
+                td {{ingredient.name}}
+                td {{ingredient.local}}
