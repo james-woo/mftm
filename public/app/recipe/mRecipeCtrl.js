@@ -21,7 +21,7 @@ recipeCtrl.controller('mRecipeCtrl', function($scope, mRecipeAPI, mRecipe, $loca
 
         mRecipeAPI.createRecipe(newRecipeData).then(function() {
             mNotifier.notify('Recipe created!');
-            $location.path('/');
+            //$location.path('/');
         }, function(reason) {
             mNotifier.error(reason);
         })

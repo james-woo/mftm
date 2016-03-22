@@ -9,7 +9,7 @@ equipmentCtrl.controller('mEquipmentCtrl', function($scope, mEquipmentAPI, mEqui
 
         mEquipmentAPI.createEquipment(newEquipmentData).then(function() {
             mNotifier.notify('Equipment created!');
-            $location.path('/');
+            //$location.path('/addequipment');
         }, function(reason) {
             mNotifier.error(reason);
         })

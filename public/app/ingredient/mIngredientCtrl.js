@@ -12,7 +12,7 @@ ingredientCtrl.controller('mIngredientCtrl', function($scope, mIngredientAPI, mI
 
         mIngredientAPI.createIngredient(newIngredientData).then(function() {
             mNotifier.notify('Ingredient created!');
-            $location.path('/');
+            //$location.path('/');
         }, function(reason) {
             mNotifier.error(reason);
         })
