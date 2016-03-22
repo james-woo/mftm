@@ -1,4 +1,4 @@
-angular.module('app').controller('mLoginCtrl', function($scope, $http, mIdentity, mNotifier, mAuth, $location) {
+angular.module('app').controller('mLoginCtrl', function($scope, $http, mIdentity, mNotifier, mAuth, $location, mCookies) {
 
     $scope.identity = mIdentity;
 
@@ -19,5 +19,10 @@ angular.module('app').controller('mLoginCtrl', function($scope, $http, mIdentity
             mNotifier.notify('You have successfully signed out!');
             $location.path('/');
         })
+    };
+
+    $scope.resetCookies = function() {
+        mCookies.resetAll();
+        mNotifier.notify('Cookies reset!');
     }
 });

@@ -1,4 +1,4 @@
-angular.module('app').controller('mainController', function($http, $scope, mRecipe, mIngredient, mEquipment,mCookies) {
+angular.module('app').controller('mainController', function($http, $scope, mRecipe, mIngredient, mEquipment, mCookies) {
 
     //Map related
     L.mapbox.accessToken = 'pk.eyJ1IjoiY3BkbGF0bSIsImEiOiJjaWxkZTR1bjgwZWMzdmFtYzd4ajhjcjRnIn0.-y57DqhBHm0jg2-v1JI-UQ';
@@ -21,6 +21,7 @@ angular.module('app').controller('mainController', function($http, $scope, mReci
                 { lat: parseFloat(mCookies.read('latitude')), lon: parseFloat(mCookies.read('longitude')) },
                 function(err, res) {
                     $scope.location = res.features[0].place_name;
+                    mCookies.create('location', $scope.location);
                     $scope.$apply();
                 });
         }
@@ -88,6 +89,7 @@ angular.module('app').controller('mainController', function($http, $scope, mReci
             { lat: parseFloat(mCookies.read('latitude')), lon: parseFloat(mCookies.read('longitude')) },
             function(err, res) {
                 $scope.location = res.features[0].place_name;
+                mCookies.create('location', $scope.location);
                 $scope.$apply();
             });
     };
@@ -123,32 +125,40 @@ angular.module('app').controller('mainController', function($http, $scope, mReci
             medium: true,
             hard: true
         };
+        mCookies.createJSON('suggestions', $scope.suggestions);
+        mCookies.createJSON('omitted', $scope.omitted);
+        mCookies.createJSON('hasequipment', $scope.hasequipment);
+        mCookies.create('breakfast', $scope.mealtypeCheck.breakfast);
+        mCookies.create('lunch', $scope.mealtypeCheck.lunch);
+        mCookies.create('dinner', $scope.mealtypeCheck.dinner);
+        mCookies.create('snacks', $scope.mealtypeCheck.snacks);
+        mCookies.create('easy', $scope.difficultyCheck.easy);
+        mCookies.create('medium', $scope.difficultyCheck.medium);
+        mCookies.create('hard', $scope.difficultyCheck.hard);
     }
 
-
     $scope.initPreferences = function() {
-        mCookies.create('prefs', 0);
         var prefs = mCookies.read('prefs');
         if(prefs != 1) {
             setDefaults();
             mCookies.create('prefs', 1);
         } else {
-            $scope.suggestions = mCookies.read('suggestions');
-            $scope.omitted = mCookies.read('omitted');
-            $scope.hasequipment = mCookies.read('hasequipment');
-            var breakfastCheck = mCookies.read('breakfast');
-            var lunchCheck = mCookies.read('lunch');
-            var dinnerCheck = mCookies.read('dinner');
-            var snackCheck = mCookies.read('snack');
-            var easyCheck = mCookies.read('easy');
-            var mediumCheck = mCookies.read('medium');
-            var hardCheck = mCookies.read('hard');
-
+            $scope.suggestions = mCookies.readJSON('suggestions');
+            $scope.omitted = mCookies.readJSON('omitted');
+            $scope.hasequipment = mCookies.readJSON('hasequipment');
+            var breakfastCheck = bool(mCookies.read('breakfast'));
+            var lunchCheck = bool(mCookies.read('lunch'));
+            var dinnerCheck = bool(mCookies.read('dinner'));
+            var snackCheck = bool(mCookies.read('snacks'));
+            var easyCheck = bool(mCookies.read('easy'));
+            var mediumCheck = bool(mCookies.read('medium'));
+            var hardCheck = bool(mCookies.read('hard'));
+            
             $scope.mealtypeCheck = {
                 breakfast: breakfastCheck,
                 lunch: lunchCheck,
                 dinner: dinnerCheck,
-                snack: snackCheck
+                snacks: snackCheck
             };
 
             $scope.difficultyCheck = {
@@ -156,6 +166,7 @@ angular.module('app').controller('mainController', function($http, $scope, mReci
                 medium: mediumCheck,
                 hard: hardCheck
             };
+
         }
     };
 
@@ -168,7 +179,7 @@ angular.module('app').controller('mainController', function($http, $scope, mReci
         $scope.ingredient = ingredient;
         if($scope.suggestions.indexOf(ingredient.name) == -1) {
             $scope.suggestions.push(ingredient.name);
-            mCookies.insert('suggestions', ingredient.name);
+            mCookies.insertJSON('suggestions', [ingredient.name]);
         }
     };
 
@@ -176,7 +187,7 @@ angular.module('app').controller('mainController', function($http, $scope, mReci
         if($scope.suggestions.indexOf(ingredient) > -1) {
             var i = $scope.suggestions.indexOf(ingredient);
             $scope.suggestions.splice(i, 1);
-            mCookies.remove('suggestions', ingredient);
+            mCookies.remove('suggestions', [ingredient]);
         }
     };
 
@@ -184,7 +195,7 @@ angular.module('app').controller('mainController', function($http, $scope, mReci
         $scope.omit = omit;
         if($scope.omitted.indexOf(omit.name) == -1) {
             $scope.omitted.push(omit.name);
-            mCookies.insert('omitted', omit.name);
+            mCookies.insertJSON('omitted', [omit.name]);
         }
     };
 
@@ -200,7 +211,7 @@ angular.module('app').controller('mainController', function($http, $scope, mReci
         $scope.e = e;
         if($scope.hasequipment.indexOf(e.name) == -1) {
             $scope.hasequipment.push(e.name);
-            mCookies.insert('hasequipment', e.name);
+            mCookies.insertJSON('hasequipment', [e.name]);
         }
     };
 
@@ -212,6 +223,26 @@ angular.module('app').controller('mainController', function($http, $scope, mReci
         }
     };
 
+    $scope.updateMealtype = function() {
+        mCookies.update('breakfast', $scope.mealtypeCheck.breakfast);
+        mCookies.update('lunch', $scope.mealtypeCheck.lunch);
+        mCookies.update('dinner', $scope.mealtypeCheck.dinner);
+        mCookies.update('snacks', $scope.mealtypeCheck.snacks);
+    };
+
+    $scope.updateDifficulty = function() {
+        mCookies.update('easy', $scope.difficultyCheck.easy);
+        mCookies.update('medium', $scope.difficultyCheck.medium);
+        mCookies.update('hard', $scope.difficultyCheck.hard);
+    };
+
+    function bool(string){
+        switch(string.toLowerCase().trim()){
+            case "true": case "yes": case "1": return true;
+            case "false": case "no": case "0": case null: return false;
+            default: return Boolean(string);
+        }
+    }
 });
 
 angular.module('app').directive('typeahead', ['$compile', '$timeout', function($compile, $timeout) {

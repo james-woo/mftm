@@ -47,19 +47,19 @@
                     p Meal Type
                         .checkbox
                             label(for='mealtype-checkboxes-0')
-                                input#mealtype-checkboxes-0(type='checkbox', ng-model="mealtypeCheck.breakfast")
+                                input#mealtype-checkboxes-0(type='checkbox', ng-model="mealtypeCheck.breakfast", ng-change='updateMealtype()')
                                 |       Breakfast
                         .checkbox
                             label(for='mealtype-checkboxes-1')
-                                input#mealtype-checkboxes-1(type='checkbox', ng-model="mealtypeCheck.lunch")
+                                input#mealtype-checkboxes-1(type='checkbox', ng-model="mealtypeCheck.lunch", ng-change='updateMealtype()')
                                 |       Lunch
                         .checkbox
                             label(for='mealtype-checkboxes-2')
-                                input#mealtype-checkboxes-2(type='checkbox', ng-model="mealtypeCheck.dinner")
+                                input#mealtype-checkboxes-2(type='checkbox', ng-model="mealtypeCheck.dinner", ng-change='updateMealtype()')
                                 |       Dinner
                         .checkbox
                             label(for='mealtype-checkboxes-3')
-                                input#mealtype-checkboxes-3(type='checkbox', ng-model="mealtypeCheck.snacks")
+                                input#mealtype-checkboxes-3(type='checkbox', ng-model="mealtypeCheck.snacks", ng-change='updateMealtype()')
                                 |       Snacks
     md-card
         md-card-title
@@ -68,13 +68,13 @@
                     p Difficulty
                         .checkbox
                             label(for='difficulty-checkboxes-0')
-                                input#difficulty-checkboxes-0(type='checkbox', ng-model="difficultyCheck.easy")
+                                input#difficulty-checkboxes-0(type='checkbox', ng-model="difficultyCheck.easy", ng-change='updateDifficulty()')
                                 |       I can make cereal
                         .checkbox
                             label(for='difficulty-checkboxes-1')
-                                input#difficulty-checkboxes-1(type='checkbox', ng-model="difficultyCheck.medium")
+                                input#difficulty-checkboxes-1(type='checkbox', ng-model="difficultyCheck.medium", ng-change='updateDifficulty()')
                                 |       Average
                         .checkbox
                             label(for='difficulty-checkboxes-2')
-                                input#difficulty-checkboxes-2(type='checkbox', ng-model="difficultyCheck.hard")
+                                input#difficulty-checkboxes-2(type='checkbox', ng-model="difficultyCheck.hard", ng-change='updateDifficulty()')
                                 |       Iron Chef
