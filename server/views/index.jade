@@ -4,7 +4,8 @@ block main-content
     .navbar-custom.navbar.navbar-inverse
         .container-fluid
             .navbar-header
-                a.navbar-brand(href='/') MTFM
+                a.navbar-brand.pull-left(href='/')
+                    img(alt="Meals For The Moment" src="/images/logo.png", style="max-width:40px; margin-top: -10px;")
             div
                 ul.nav.navbar-nav
                 #navbar-login(ng-include="'/partials/account/login'")

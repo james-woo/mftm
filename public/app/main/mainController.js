@@ -1,4 +1,4 @@
-angular.module('app').controller('mainController', function($http, $scope, mRecipe, mIngredient, mCookies) {
+angular.module('app').controller('mainController', function($http, $scope, mRecipe, mIngredient, mEquipment,mCookies) {
 
     //Map related
     L.mapbox.accessToken = 'pk.eyJ1IjoiY3BkbGF0bSIsImEiOiJjaWxkZTR1bjgwZWMzdmFtYzd4ajhjcjRnIn0.-y57DqhBHm0jg2-v1JI-UQ';
@@ -109,7 +109,7 @@ angular.module('app').controller('mainController', function($http, $scope, mReci
     function setDefaults() {
         $scope.suggestions = ["Mongoose"];
         $scope.omitted = ["Salt"];
-        $scope.equipment = ["Pan"];
+        $scope.hasequipment = ["Pan"];
 
         $scope.mealtypeCheck = {
             breakfast: true,
@@ -127,15 +127,15 @@ angular.module('app').controller('mainController', function($http, $scope, mReci
 
 
     $scope.initPreferences = function() {
-        console.log("loading preferences");
+        mCookies.create('prefs', 0);
         var prefs = mCookies.read('prefs');
-        if(prefs == undefined) {
+        if(prefs != 1) {
             setDefaults();
             mCookies.create('prefs', 1);
         } else {
-            $scope.suggestions = ["Mongoose"];
+            $scope.suggestions = mCookies.read('suggestions');
             $scope.omitted = mCookies.read('omitted');
-            $scope.equipment = mCookies.read('equipment');
+            $scope.hasequipment = mCookies.read('hasequipment');
             var breakfastCheck = mCookies.read('breakfast');
             var lunchCheck = mCookies.read('lunch');
             var dinnerCheck = mCookies.read('dinner');
@@ -162,26 +162,55 @@ angular.module('app').controller('mainController', function($http, $scope, mReci
     // Recipe related
     $scope.recipes = mRecipe.query();
     $scope.ingredients = mIngredient.query();
+    $scope.equipment = mEquipment.query();
 
     $scope.filterIngredients = function(ingredient){
         $scope.ingredient = ingredient;
         if($scope.suggestions.indexOf(ingredient.name) == -1) {
             $scope.suggestions.push(ingredient.name);
+            mCookies.insert('suggestions', ingredient.name);
         }
     };
 
     $scope.removeSuggestion = function(ingredient) {
-        /*for(var i = 0; i < $scope.suggestions.length; i++){
-            if($scope.suggestions[i].name == ingredient){
-                $scope.suggestions.splice(i,1);
-                break; // If you want to break out of the loop once you've found a match
-            }
-        }*/
         if($scope.suggestions.indexOf(ingredient) > -1) {
             var i = $scope.suggestions.indexOf(ingredient);
             $scope.suggestions.splice(i, 1);
+            mCookies.remove('suggestions', ingredient);
         }
-    }
+    };
+
+    $scope.filterOmitted = function(omit){
+        $scope.omit = omit;
+        if($scope.omitted.indexOf(omit.name) == -1) {
+            $scope.omitted.push(omit.name);
+            mCookies.insert('omitted', omit.name);
+        }
+    };
+
+    $scope.removeOmitted = function(omit) {
+        if($scope.omitted.indexOf(omit) > -1) {
+            var i = $scope.omitted.indexOf(omit);
+            $scope.omitted.splice(i, 1);
+            mCookies.remove('omitted', omit);
+        }
+    };
+
+    $scope.filterEquipment = function(e){
+        $scope.e = e;
+        if($scope.hasequipment.indexOf(e.name) == -1) {
+            $scope.hasequipment.push(e.name);
+            mCookies.insert('hasequipment', e.name);
+        }
+    };
+
+    $scope.removeEquipment = function(e) {
+        if($scope.hasequipment.indexOf(e) > -1) {
+            var i = $scope.hasequipment.indexOf(e);
+            $scope.hasequipment.splice(i, 1);
+            mCookies.remove('hasequipment', e);
+        }
+    };
 
 });
 

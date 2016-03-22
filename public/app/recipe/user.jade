@@ -14,7 +14,6 @@
                     p Search Ingredients
                         .form-group
                         input.form-control(type='text', autocomplete='true', ng-model='ingredientInput', placeholder='Ingredients', typeahead='ingredients', typeahead-callback='filterIngredients')
-                        p You selected: {{ingredient.name}}
                     p Ingredient Suggestions
                         br
                         ng-form(data-ng-repeat="suggestion in suggestions")
@@ -25,14 +24,11 @@
                 form.form-inline
                     p Omit Ingredients
                         .form-group
-                        input.form-control(type='text', autocomplete='false', ng-model='omitInput', placeholder='Ingredients', typeahead='omitted', typeahead-callback='filterOmitted')
-                        p You selected: {{omit.name}}
+                        input.form-control(type='text', autocomplete='false', ng-model='omitInput', placeholder='Ingredients', typeahead='ingredients', typeahead-callback='filterOmitted')
                     p Omitted Ingredients
-                        .form-group
-                        button.btn-custom-exclude.btn Butter
-                        button.btn-custom-exclude.btn Milk
-                        button.btn-custom-exclude.btn Chicken
-                        button.btn-custom-exclude.btn Ice
+                        br
+                        ng-form(data-ng-repeat="o in omitted")
+                            button.btn-custom-exclude.btn(ng-click="removeOmitted(o)") {{o}}
     md-card
         md-card-title
             md-card-title-text
@@ -40,17 +36,15 @@
                     p Equipment
                         .form-group
                         input.form-control(type='text', autocomplete='false', ng-model='equipmentInput', placeholder='Equipment', typeahead='equipment', typeahead-callback='filterEquipment')
-                        p You selected: {{equipment.name}}
                     p Your Equipment
-                        .form-group
-                        button.btn-custom-include.btn Pan
-                        button.btn-custom-include.btn Oven
+                        br
+                        ng-form(data-ng-repeat="e in hasequipment")
+                            button.btn-custom-include.btn(ng-click="removeEquipment(e)") {{e}}
     md-card
         md-card-title
             md-card-title-text
                 .form-group
                     p Meal Type
-                    .col-md-4
                         .checkbox
                             label(for='mealtype-checkboxes-0')
                                 input#mealtype-checkboxes-0(type='checkbox', ng-model="mealtypeCheck.breakfast")
@@ -72,7 +66,6 @@
             md-card-title-text
                 .form-group
                     p Difficulty
-                    .col-md-4
                         .checkbox
                             label(for='difficulty-checkboxes-0')
                                 input#difficulty-checkboxes-0(type='checkbox', ng-model="difficultyCheck.easy")
