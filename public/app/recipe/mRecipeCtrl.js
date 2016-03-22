@@ -20,6 +20,7 @@ recipeCtrl.controller('mRecipeCtrl', function($scope, mRecipeAPI, mRecipe, $loca
         };
 
         mRecipeAPI.createRecipe(newRecipeData).then(function() {
+            $('#recipeCreationForm').trigger("reset");
             mNotifier.notify('Recipe created!');
             //$location.path('/');
         }, function(reason) {

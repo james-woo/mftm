@@ -8,6 +8,7 @@ equipmentCtrl.controller('mEquipmentCtrl', function($scope, mEquipmentAPI, mEqui
         };
 
         mEquipmentAPI.createEquipment(newEquipmentData).then(function() {
+            $('#equipmentCreationForm').trigger("reset");
             mNotifier.notify('Equipment created!');
             //$location.path('/addequipment');
         }, function(reason) {

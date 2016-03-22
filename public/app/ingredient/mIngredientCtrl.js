@@ -11,6 +11,7 @@ ingredientCtrl.controller('mIngredientCtrl', function($scope, mIngredientAPI, mI
         };
 
         mIngredientAPI.createIngredient(newIngredientData).then(function() {
+            $('#ingredientCreationForm').trigger("reset");
             mNotifier.notify('Ingredient created!');
             //$location.path('/');
         }, function(reason) {
