@@ -153,7 +153,7 @@ angular.module('app').controller('mainController', function($http, $scope, mReci
             var easyCheck = bool(mCookies.read('easy'));
             var mediumCheck = bool(mCookies.read('medium'));
             var hardCheck = bool(mCookies.read('hard'));
-            
+
             $scope.mealtypeCheck = {
                 breakfast: breakfastCheck,
                 lunch: lunchCheck,
@@ -178,13 +178,13 @@ angular.module('app').controller('mainController', function($http, $scope, mReci
     $scope.filterIngredients = function(ingredient){
         $scope.ingredient = ingredient;
         if($scope.suggestions.indexOf(ingredient.name) == -1) {
-            $scope.suggestions.push(ingredient.name);
+            $scope.suggestions.push(ingredient.name.replace(/\s/g, ''));
             mCookies.insertJSON('suggestions', [ingredient.name]);
         }
     };
 
     $scope.removeSuggestion = function(ingredient) {
-        if($scope.suggestions.indexOf(ingredient) > -1) {
+        if($scope.suggestions.indexOf(ingredient) != -1) {
             var i = $scope.suggestions.indexOf(ingredient);
             $scope.suggestions.splice(i, 1);
             mCookies.remove('suggestions', [ingredient]);
@@ -194,13 +194,13 @@ angular.module('app').controller('mainController', function($http, $scope, mReci
     $scope.filterOmitted = function(omit){
         $scope.omit = omit;
         if($scope.omitted.indexOf(omit.name) == -1) {
-            $scope.omitted.push(omit.name);
+            $scope.omitted.push(omit.name.replace(/\s/g, ''));
             mCookies.insertJSON('omitted', [omit.name]);
         }
     };
 
     $scope.removeOmitted = function(omit) {
-        if($scope.omitted.indexOf(omit) > -1) {
+        if($scope.omitted.indexOf(omit) != -1) {
             var i = $scope.omitted.indexOf(omit);
             $scope.omitted.splice(i, 1);
             mCookies.remove('omitted', omit);
@@ -210,13 +210,13 @@ angular.module('app').controller('mainController', function($http, $scope, mReci
     $scope.filterEquipment = function(e){
         $scope.e = e;
         if($scope.hasequipment.indexOf(e.name) == -1) {
-            $scope.hasequipment.push(e.name);
+            $scope.hasequipment.push(e.name.replace(/\s/g, ''));
             mCookies.insertJSON('hasequipment', [e.name]);
         }
     };
 
     $scope.removeEquipment = function(e) {
-        if($scope.hasequipment.indexOf(e) > -1) {
+        if($scope.hasequipment.indexOf(e) != -1) {
             var i = $scope.hasequipment.indexOf(e);
             $scope.hasequipment.splice(i, 1);
             mCookies.remove('hasequipment', e);
@@ -236,6 +236,60 @@ angular.module('app').controller('mainController', function($http, $scope, mReci
         mCookies.update('hard', $scope.difficultyCheck.hard);
     };
 
+    $scope.filter = {};
+
+    $scope.getMealtypes = function () {
+        return ($scope.recipes || []).map(function (r) {
+            return r.meal_type;
+        }).filter(function (r, idx, arr) {
+            return arr.indexOf(r) === idx;
+        });
+    };
+
+    $scope.getDifficulty = function () {
+        return ($scope.recipes || []).map(function (r) {
+            return r.difficulty;
+        }).filter(function (r, idx, arr) {
+            return arr.indexOf(r) === idx;
+        });
+    };
+
+    $scope.filterRecipe = function (recipe) {
+        if(filterOmitIngredients(recipe) === true) {
+            return false;
+        }
+        else
+            return ((filterIngredients(recipe) || filterIncludedEquipment(recipe) || $scope.filter[recipe.difficulty] || $scope.filter[recipe.meal_type] || noFilter($scope.filter)));
+    };
+
+    function noFilter(filterObj) {
+        for (var key in filterObj) {
+            if (filterObj[key]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    function filterIngredients(recipe) {
+        return ($scope.suggestions.indexOf(recipe.ingredients) > -1)
+    }
+
+    function filterOmitIngredients(recipe) {
+        var ingredients = recipe.ingredients.split(",");
+        for(var j = 0; j < ingredients.length; j++) {
+            ingredients[j] = ingredients[j].replace(/\s/g, '');
+            if($scope.omitted.indexOf(ingredients[j]) > -1) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    function filterIncludedEquipment(recipe) {
+        return ($scope.hasequipment.indexOf(recipe.ingredients) > -1)
+    }
+
     function bool(string){
         switch(string.toLowerCase().trim()){
             case "true": case "yes": case "1": return true;
@@ -243,6 +297,8 @@ angular.module('app').controller('mainController', function($http, $scope, mReci
             default: return Boolean(string);
         }
     }
+
+
 });
 
 angular.module('app').directive('typeahead', ['$compile', '$timeout', function($compile, $timeout) {
