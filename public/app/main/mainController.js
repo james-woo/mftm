@@ -266,7 +266,7 @@ angular.module('app').controller('mainController', function($http, $scope, mReci
         if(filterOmitIngredients(recipe) === true) {
             return false;
         }
-        return filterIngredients(recipe) && filterIncludedEquipment(recipe) && filterDifficulty(recipe)
+        return filterIngredients(recipe) || filterIncludedEquipment(recipe) && filterDifficulty(recipe)
                 && filterMealtype(recipe);
     };
 
