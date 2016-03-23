@@ -5,9 +5,10 @@ md-content.md-padding(layout-xs='column', layout='row')
                 md-card-title
                     md-card-title-text
                         span.md-headline {{recipe.name}}
+                        i {{recipe.summary}}
                         br
                         p Difficulty: {{recipe.difficulty}}
                         p Season: {{recipe.season}}
                         p Meal Type: {{recipe.meal_type}}
                     md-card-title-media
-                        .md-media-lg.card-media
+                        img#recipe-image(src='{{recipe.img_url}}')

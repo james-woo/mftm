@@ -4,6 +4,7 @@ md-content.md-padding(layout-xs='column', layout='row')
                 md-card-title
                     md-card-title-text
                         h1 {{recipe.name}}
+                        i {{recipe.summary}}
                         br
                         h4 Description
                         p {{recipe.description}}
@@ -16,4 +17,4 @@ md-content.md-padding(layout-xs='column', layout='row')
                         h4 Meal Type
                         p {{recipe.meal_type}}
                     md-card-title-media
-                        .md-media-lg.card-media
+                        img#recipe-image(src='{{recipe.img_url}}')

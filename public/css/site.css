@@ -91,6 +91,10 @@
 md-card {
   background-color: #fff;
 }
+#recipe-image {
+  width: 200px;
+  height: auto;
+}
 footer {
   padding-left: 15px;
   padding-right: 15px;

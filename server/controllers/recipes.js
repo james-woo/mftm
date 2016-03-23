@@ -54,12 +54,14 @@ exports.updateRecipe = function(req, res) {
     }
 
     req.recipes.name = recipeUpdates.name;
+    req.recipes.summary = recipeUpdates.summary;
     req.recipes.description = recipeUpdates.description;
     req.recipes.difficulty = recipeUpdates.difficulty;
     req.recipes.ingredients = recipeUpdates.ingredients;
     req.recipes.equipment = recipeUpdates.equipment;
     req.recipes.season = recipeUpdates.season;
     req.recipes.meal_type = recipeUpdates.meal_type;
+    req.recipes.img_url = recipeUpdates.meal_type;
 
     req.recipes.save(function(err) {
         if(err) {

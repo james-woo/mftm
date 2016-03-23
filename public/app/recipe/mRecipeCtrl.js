@@ -11,12 +11,14 @@ recipeCtrl.controller('mRecipeCtrl', function($scope, mRecipeAPI, mRecipe, $loca
         mealtype = mealtype.filter(function(n){ return n != undefined });
         var newRecipeData = {
             name: $scope.name,
+            summary: $scope.summary,
             description: $scope.description,
             difficulty: $scope.difficulty.value,
             ingredients: $scope.ingredients,
             equipment: $scope.equipment,
             season: seasons,
-            meal_type: mealtype
+            meal_type: mealtype,
+            img_url: $scope.img_url
         };
 
         mRecipeAPI.createRecipe(newRecipeData).then(function() {
@@ -36,12 +38,14 @@ recipeCtrl.controller('mRecipeShowCtrl', function($scope, $http, $routeParams, $
     mRecipeAPI.getRecipe(recipeID).then(function(recipe) {
         $scope.recipe = {
             name: recipe.name,
+            summary: recipe.summary,
             description: recipe.description,
             difficulty: recipe.difficulty,
             ingredients: recipe.ingredients,
             equipment: recipe.equipment,
             season: recipe.season,
-            meal_type: recipe.meal_type
+            meal_type: recipe.meal_type,
+            img_url: recipe.img_url
         };
     }, function(reason) {
         $location.path('/');

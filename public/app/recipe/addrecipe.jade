@@ -10,6 +10,18 @@
                     .col-md-4
                         input#recipe-name.form-control.input-md(name='recipe-name', type='text', placeholder='name', ng-model="name", required)
                         span.help-block Name of recipe
+                // Text input
+                .form-group
+                    label.col-md-4.control-label(for='recipe-summary') Summary
+                    .col-md-4
+                        input#recipe-summary.form-control.input-md(name='recipe-summary', type='text', placeholder='summary', ng-model="summary", required)
+                        span.help-block Summary of recipe
+                // Text input
+                .form-group
+                    label.col-md-4.control-label(for='recipe-img_url') Image Link
+                    .col-md-4
+                        input#recipe-img_url.form-control.input-md(name='recipe-img_url', type='text', placeholder='http://image url', ng-model="img_url", required)
+                        span.help-block Image Link
                 // Textarea
                 .form-group
                     label.col-md-4.control-label(for='recipe-description') Description
