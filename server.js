@@ -14,5 +14,10 @@ require('./server/config/passport')();
 
 require('./server/config/routes')(app);
 
+// keep alive
+setInterval(function(){
+    http.get("http://mftm.herokuapp.com");
+}, 900000);
+
 app.listen(config.port);
 console.log('Listening on port ' + config.port);
