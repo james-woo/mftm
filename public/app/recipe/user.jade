@@ -22,10 +22,10 @@
         md-card-title
             md-card-title-text
                 form.form-inline
-                    p Omit Ingredients
+                    p Exclude Ingredients
                         .form-group
                         input.form-control(type='text', autocomplete='false', ng-model='omitInput', placeholder='Ingredients', typeahead='ingredients', typeahead-callback='filterOmitted')
-                    p Omitted Ingredients
+                    p Excluded Ingredients
                         br
                         ng-form(data-ng-repeat="o in omitted")
                             button.btn-custom-exclude.btn(ng-click="removeOmitted(o)") {{o}}
@@ -36,10 +36,10 @@
                     p Equipment
                         .form-group
                         input.form-control(type='text', autocomplete='false', ng-model='equipmentInput', placeholder='Equipment', typeahead='equipment', typeahead-callback='filterEquipment')
-                    p Your Equipment
+                    p Exclude Equipment
                         br
-                        ng-form(data-ng-repeat="e in hasequipment")
-                            button.btn-custom-include.btn(ng-click="removeEquipment(e)") {{e}}
+                        ng-form(data-ng-repeat="e in excludeequipment")
+                            button.btn-custom-exclude.btn(ng-click="removeEquipment(e)") {{e}}
     md-card
         md-card-title
             md-card-title-text
