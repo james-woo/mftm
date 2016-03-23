@@ -30,6 +30,8 @@ angular.module('app').factory('mCookies', function() {
         },
         readJSON: function(key) {
             var json = Cookies.getJSON(key);
+            if(json == '')
+                return ["Nothing"];
             return json.split(",");
         },
         delete: function(key) {

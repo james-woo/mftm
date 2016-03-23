@@ -10,7 +10,7 @@
     md-card
         md-card-title
             md-card-title-text
-                form.form-inline
+                form
                     p Search Ingredients
                         .form-group
                         input.form-control(type='text', autocomplete='true', ng-model='ingredientInput', placeholder='Ingredients', typeahead='ingredients', typeahead-callback='filterIngredients')
@@ -45,23 +45,19 @@
             md-card-title-text
                 .form-group
                     p Meal Type
-                        div(ng-repeat='m in getMealtypes()')
-                            input(type='checkbox', ng-model='filter[m]')
-                            |  {{m}}
-
-                        //.checkbox
+                        .checkbox
                             label(for='mealtype-checkboxes-0')
                                 input#mealtype-checkboxes-0(type='checkbox', ng-model="mealtypeCheck.breakfast", ng-change='updateMealtype()')
                                 |       Breakfast
-                        //.checkbox
+                        .checkbox
                             label(for='mealtype-checkboxes-1')
                                 input#mealtype-checkboxes-1(type='checkbox', ng-model="mealtypeCheck.lunch", ng-change='updateMealtype()')
                                 |       Lunch
-                        //.checkbox
+                        .checkbox
                             label(for='mealtype-checkboxes-2')
                                 input#mealtype-checkboxes-2(type='checkbox', ng-model="mealtypeCheck.dinner", ng-change='updateMealtype()')
                                 |       Dinner
-                        //.checkbox
+                        .checkbox
                             label(for='mealtype-checkboxes-3')
                                 input#mealtype-checkboxes-3(type='checkbox', ng-model="mealtypeCheck.snacks", ng-change='updateMealtype()')
                                 |       Snacks
@@ -70,18 +66,15 @@
             md-card-title-text
                 .form-group
                     p Difficulty
-                        div(ng-repeat='d in getDifficulty()')
-                            input(type='checkbox', ng-model='filter[d]')
-                            |  {{d}}
-                        //.checkbox
+                        .checkbox
                             label(for='difficulty-checkboxes-0')
                                 input#difficulty-checkboxes-0(type='checkbox', ng-model="difficultyCheck.easy", ng-change='updateDifficulty()')
                                 |       I can make cereal
-                        //.checkbox
+                        .checkbox
                             label(for='difficulty-checkboxes-1')
                                 input#difficulty-checkboxes-1(type='checkbox', ng-model="difficultyCheck.medium", ng-change='updateDifficulty()')
                                 |       Average
-                        //.checkbox
+                        .checkbox
                             label(for='difficulty-checkboxes-2')
                                 input#difficulty-checkboxes-2(type='checkbox', ng-model="difficultyCheck.hard", ng-change='updateDifficulty()')
                                 |       Iron Chef

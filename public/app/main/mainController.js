@@ -175,6 +175,20 @@ angular.module('app').controller('mainController', function($http, $scope, mReci
     $scope.ingredients = mIngredient.query();
     $scope.equipment = mEquipment.query();
 
+    $scope.userMealtype = function() {
+        var t = $scope.mealtypeCheck;
+        var userMealtype = [];
+        if(t.breakfast)
+            userMealtype.push("Breakfast");
+        if(t.lunch)
+            userMealtype.push("Lunch");
+        if(t.dinner)
+            userMealtype.push("Dinner");
+        if(t.snacks)
+            userMealtype.push("Snacks");
+        return userMealtype;
+    };
+
     $scope.filterIngredients = function(ingredient){
         $scope.ingredient = ingredient;
         if($scope.suggestions.indexOf(ingredient.name) == -1) {
@@ -238,28 +252,12 @@ angular.module('app').controller('mainController', function($http, $scope, mReci
 
     $scope.filter = {};
 
-    $scope.getMealtypes = function () {
-        return ($scope.recipes || []).map(function (r) {
-            return r.meal_type;
-        }).filter(function (r, idx, arr) {
-            return arr.indexOf(r) === idx;
-        });
-    };
-
-    $scope.getDifficulty = function () {
-        return ($scope.recipes || []).map(function (r) {
-            return r.difficulty;
-        }).filter(function (r, idx, arr) {
-            return arr.indexOf(r) === idx;
-        });
-    };
-
     $scope.filterRecipe = function (recipe) {
         if(filterOmitIngredients(recipe) === true) {
             return false;
         }
-        else
-            return ((filterIngredients(recipe) || filterIncludedEquipment(recipe) || $scope.filter[recipe.difficulty] || $scope.filter[recipe.meal_type] || noFilter($scope.filter)));
+        return ((filterIngredients(recipe) || filterIncludedEquipment(recipe) || filterDifficulty(recipe)
+                 || filterMealtype(recipe)));
     };
 
     function noFilter(filterObj) {
@@ -271,8 +269,33 @@ angular.module('app').controller('mainController', function($http, $scope, mReci
         return true;
     }
 
+    function filterDifficulty(recipe) {
+        var difficulty = recipe.difficulty;
+        var diffcheck = JSON.stringify($scope.difficultyCheck);
+        return (diffcheck.indexOf(difficulty) > -1);
+    }
+
+    function filterMealtype(recipe) {
+        var type = recipe.meal_type.split(",");
+        var meals = $scope.userMealtype();
+        for(var j = 0; j < type.length; j++) {
+            type[j] = type[j].replace(/\s/g, '');
+            if(meals.indexOf(type[j]) > -1) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     function filterIngredients(recipe) {
-        return ($scope.suggestions.indexOf(recipe.ingredients) > -1)
+        var ingredients = recipe.ingredients.split(",");
+        for(var j = 0; j < ingredients.length; j++) {
+            ingredients[j] = ingredients[j].replace(/\s/g, '');
+            if($scope.suggestions.indexOf(ingredients[j]) > -1) {
+                return true;
+            }
+        }
+        return false;
     }
 
     function filterOmitIngredients(recipe) {
@@ -287,7 +310,14 @@ angular.module('app').controller('mainController', function($http, $scope, mReci
     }
 
     function filterIncludedEquipment(recipe) {
-        return ($scope.hasequipment.indexOf(recipe.ingredients) > -1)
+        var equipment = recipe.equipment.split(",");
+        for(var j = 0; j < equipment.length; j++) {
+            equipment[j] = equipment[j].replace(/\s/g, '');
+            if($scope.hasequipment.indexOf(equipment[j]) > -1) {
+                return true;
+            }
+        }
+        return false;
     }
 
     function bool(string){

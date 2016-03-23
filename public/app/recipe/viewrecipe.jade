@@ -3,12 +3,17 @@ md-content.md-padding(layout-xs='column', layout='row')
             md-card
                 md-card-title
                     md-card-title-text
-                        span.md-headline {{recipe.name}}
+                        h1 {{recipe.name}}
                         br
-                        p Description: {{recipe.description}}
-                        p Ingredients: {{recipe.ingredients}}
-                        p Difficulty: {{recipe.difficulty}}
-                        p Season: {{recipe.season}}
-                        p Meal Type: {{recipe.meal_type}}
+                        h4 Description
+                        p {{recipe.description}}
+                        h4 Ingredients
+                        p {{recipe.ingredients}}
+                        h4 Difficulty
+                        p {{recipe.difficulty}}
+                        h4 Season
+                        p {{recipe.season}}
+                        h4 Meal Type
+                        p {{recipe.meal_type}}
                     md-card-title-media
                         .md-media-lg.card-media
