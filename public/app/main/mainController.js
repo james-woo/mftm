@@ -189,6 +189,18 @@ angular.module('app').controller('mainController', function($http, $scope, mReci
         return userMealtype;
     };
 
+    $scope.userDifficulty = function() {
+        var d = $scope.difficultyCheck;
+        var userDifficulty = [];
+        if(d.easy)
+            userDifficulty.push("Easy");
+        else if(d.medium)
+            userDifficulty.push("Medium");
+        else if(d.hard)
+            userDifficulty.push("Hard");
+        return userDifficulty;
+    };
+
     $scope.filterIngredients = function(ingredient){
         $scope.ingredient = ingredient;
         if($scope.suggestions.indexOf(ingredient.name) == -1) {
@@ -250,8 +262,6 @@ angular.module('app').controller('mainController', function($http, $scope, mReci
         mCookies.update('hard', $scope.difficultyCheck.hard);
     };
 
-    $scope.filter = {};
-
     $scope.filterRecipe = function (recipe) {
         if(filterOmitIngredients(recipe) === true) {
             return false;
@@ -271,8 +281,8 @@ angular.module('app').controller('mainController', function($http, $scope, mReci
 
     function filterDifficulty(recipe) {
         var difficulty = recipe.difficulty;
-        var diffcheck = JSON.stringify($scope.difficultyCheck);
-        return (diffcheck.indexOf(difficulty) > -1);
+        var diff = $scope.userDifficulty();
+        return (diff.indexOf(difficulty) > -1);
     }
 
     function filterMealtype(recipe) {
