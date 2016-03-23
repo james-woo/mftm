@@ -109,9 +109,9 @@ angular.module('app').controller('mainController', function($http, $scope, mReci
 
     //default values
     function setDefaults() {
-        $scope.suggestions = ["Mongoose"];
-        $scope.omitted = ["Salt"];
-        $scope.hasequipment = ["Pan"];
+        $scope.suggestions = ["Mongoose", "Chicken", "Butter", "Beef", "Sugar", "Flour", "Milk"];
+        $scope.omitted = ["Durian", "Agar-Agar"];
+        $scope.hasequipment = ["Pan", "Oven", "Stove", "Measuring Cup", "Knife"];
 
         $scope.mealtypeCheck = {
             breakfast: true,
@@ -266,8 +266,8 @@ angular.module('app').controller('mainController', function($http, $scope, mReci
         if(filterOmitIngredients(recipe) === true) {
             return false;
         }
-        return ((filterIngredients(recipe) || filterIncludedEquipment(recipe) || filterDifficulty(recipe)
-                 || filterMealtype(recipe)));
+        return filterIngredients(recipe) && filterIncludedEquipment(recipe) && filterDifficulty(recipe)
+                && filterMealtype(recipe);
     };
 
     function noFilter(filterObj) {
