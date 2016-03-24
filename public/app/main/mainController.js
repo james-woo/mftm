@@ -1,4 +1,4 @@
-angular.module('app').controller('mainController', function($http, $scope, mRecipe, mIngredient, mEquipment, mCookies) {
+angular.module('app').controller('mainController', function($http, $scope, mRecipe, mIngredient, mEquipment, mCookies, mRecipeAPI) {
 
     //Map related
     L.mapbox.accessToken = 'pk.eyJ1IjoiY3BkbGF0bSIsImEiOiJjaWxkZTR1bjgwZWMzdmFtYzd4ajhjcjRnIn0.-y57DqhBHm0jg2-v1JI-UQ';
@@ -7,6 +7,15 @@ angular.module('app').controller('mainController', function($http, $scope, mReci
     $scope.latitude = mCookies.read('latitude');
     $scope.longitude = mCookies.read('longitude');
     $scope.location = mCookies.read('location');
+
+    var region = function(lat,lon) {
+        if(lat > 45 && lon < -105) {
+            return "Western Canada";
+        } else if(lat > 45 && lon > -105) {
+            return "Eastern Canada";
+        }
+    };
+
     var marker = L.marker([$scope.latitude,$scope.longitude], {
         draggable:'true',
         title: 'Your location'
@@ -107,9 +116,39 @@ angular.module('app').controller('mainController', function($http, $scope, mReci
     };
     // Preferences
 
+    //1. get user location
+    //2. get ingredients
+    //3. get ingredients local to user ($scope.suggestions)
+    //4. show ingredients based on $scope.suggestions
+
+    $scope.recipes = mRecipe.query();
+    $scope.ingredients = [];//mIngredient.query();
+    $scope.equipment = mEquipment.query();
+
+    function initializeIngredients(ingredients) {
+        $scope.userIngredients = [];
+        return mIngredient.query(function(ingredients){
+            $scope.ingredients = ingredients;
+            var userIngredients = [];
+            var userRegion = region($scope.latitude, $scope.longitude);
+            for(var i = 0; i < ingredients.length; i++) {
+                if(ingredients[i].local == userRegion) {
+                    userIngredients.push(ingredients[i].name);
+                }
+            }
+            $scope.userIngredients = userIngredients;
+        });
+    }
+
+    var initializeSuggestions = initializeIngredients($scope.ingredients);
+    initializeSuggestions.$promise.then(
+        function(resolve) {
+            $scope.suggestions = $scope.userIngredients;
+        }
+    );
+
     //default values
     function setDefaults() {
-        $scope.suggestions = ["Mongoose", "Chicken", "Butter", "Beef", "Sugar", "Flour", "Milk"];
         $scope.omitted = ["Durian", "Agar-Agar"];
         $scope.excludeequipment = ["Nothing"];
 
@@ -125,7 +164,6 @@ angular.module('app').controller('mainController', function($http, $scope, mReci
             medium: true,
             hard: true
         };
-        mCookies.createJSON('suggestions', $scope.suggestions);
         mCookies.createJSON('omitted', $scope.omitted);
         mCookies.createJSON('excludeequipment', $scope.excludeequipment);
         mCookies.create('breakfast', $scope.mealtypeCheck.breakfast);
@@ -143,7 +181,6 @@ angular.module('app').controller('mainController', function($http, $scope, mReci
             setDefaults();
             mCookies.create('prefs', 1);
         } else {
-            $scope.suggestions = mCookies.readJSON('suggestions');
             $scope.omitted = mCookies.readJSON('omitted');
             $scope.excludeequipment = mCookies.readJSON('excludeequipment');
             var breakfastCheck = bool(mCookies.read('breakfast'));
@@ -171,9 +208,6 @@ angular.module('app').controller('mainController', function($http, $scope, mReci
     };
 
     // Recipe related
-    $scope.recipes = mRecipe.query();
-    $scope.ingredients = mIngredient.query();
-    $scope.equipment = mEquipment.query();
 
     $scope.userMealtype = function() {
         var t = $scope.mealtypeCheck;
@@ -194,18 +228,18 @@ angular.module('app').controller('mainController', function($http, $scope, mReci
         var userDifficulty = [];
         if(d.easy)
             userDifficulty.push("Easy");
-        else if(d.medium)
+        if(d.medium)
             userDifficulty.push("Medium");
-        else if(d.hard)
+        if(d.hard)
             userDifficulty.push("Hard");
         return userDifficulty;
     };
 
-    $scope.filterIngredients = function(ingredient){
+    $scope.insertIngredients = function(ingredient){
         $scope.ingredient = ingredient;
         if($scope.suggestions.indexOf(ingredient.name) == -1) {
             $scope.suggestions.push(ingredient.name.replace(/\s/g, ''));
-            mCookies.insertJSON('suggestions', [ingredient.name]);
+            //mCookies.insertJSON('suggestions', [ingredient.name]);
         }
     };
 
@@ -213,11 +247,11 @@ angular.module('app').controller('mainController', function($http, $scope, mReci
         if($scope.suggestions.indexOf(ingredient) != -1) {
             var i = $scope.suggestions.indexOf(ingredient);
             $scope.suggestions.splice(i, 1);
-            mCookies.remove('suggestions', [ingredient]);
+            //mCookies.remove('suggestions', [ingredient]);
         }
     };
 
-    $scope.filterOmitted = function(omit){
+    $scope.insertOmitted = function(omit){
         $scope.omit = omit;
         if($scope.omitted.indexOf(omit.name) == -1) {
             $scope.omitted.push(omit.name.replace(/\s/g, ''));
@@ -233,7 +267,7 @@ angular.module('app').controller('mainController', function($http, $scope, mReci
         }
     };
 
-    $scope.filterEquipment = function(e){
+    $scope.insertEquipment = function(e){
         $scope.e = e;
         if($scope.excludeequipment.indexOf(e.name) == -1) {
             $scope.excludeequipment.push(e.name.replace(/\s/g, ''));
@@ -281,7 +315,13 @@ angular.module('app').controller('mainController', function($http, $scope, mReci
     function filterDifficulty(recipe) {
         var difficulty = recipe.difficulty;
         var diff = $scope.userDifficulty();
-        return (diff.indexOf(difficulty) > -1);
+        for(var j = 0; j < diff.length; j++) {
+            diff[j] = diff[j].replace(/\s/g, '');
+            if(difficulty.indexOf(diff[j]) > -1) {
+                return true;
+            }
+        }
+        return false;
     }
 
     function filterMealtype(recipe) {
@@ -297,6 +337,9 @@ angular.module('app').controller('mainController', function($http, $scope, mReci
     }
 
     function filterIngredients(recipe) {
+        if($scope.suggestions == undefined) {
+            return true;
+        }
         var ingredients = recipe.ingredients.split(",");
         for(var j = 0; j < ingredients.length; j++) {
             ingredients[j] = ingredients[j].replace(/\s/g, '');

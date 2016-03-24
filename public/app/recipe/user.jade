@@ -13,7 +13,7 @@
                 form
                     p Search Ingredients
                         .form-group
-                        input.form-control(type='text', autocomplete='true', ng-model='ingredientInput', placeholder='Ingredients', typeahead='ingredients', typeahead-callback='filterIngredients')
+                        input.form-control(type='text', autocomplete='true', ng-model='ingredientInput', placeholder='Ingredients', typeahead='ingredients', typeahead-callback='insertIngredients')
                     p Ingredient Suggestions
                         br
                         ng-form(data-ng-repeat="suggestion in suggestions")
@@ -24,7 +24,7 @@
                 form.form-inline
                     p Exclude Ingredients
                         .form-group
-                        input.form-control(type='text', autocomplete='false', ng-model='omitInput', placeholder='Ingredients', typeahead='ingredients', typeahead-callback='filterOmitted')
+                        input.form-control(type='text', autocomplete='false', ng-model='omitInput', placeholder='Ingredients', typeahead='ingredients', typeahead-callback='insertOmitted')
                     p Excluded Ingredients
                         br
                         ng-form(data-ng-repeat="o in omitted")
@@ -35,7 +35,7 @@
                 form.form-inline
                     p Equipment
                         .form-group
-                        input.form-control(type='text', autocomplete='false', ng-model='equipmentInput', placeholder='Equipment', typeahead='equipment', typeahead-callback='filterEquipment')
+                        input.form-control(type='text', autocomplete='false', ng-model='equipmentInput', placeholder='Equipment', typeahead='equipment', typeahead-callback='insertEquipment')
                     p Exclude Equipment
                         br
                         ng-form(data-ng-repeat="e in excludeequipment")
