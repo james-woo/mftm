@@ -38,8 +38,11 @@ angular.module('app').factory('mCookies', function() {
             Cookies.remove(key);
         },
         resetAll: function() {
+            Cookies.remove('location');
+            Cookies.remove('latitude');
+            Cookies.remove('longitude');
             Cookies.remove('prefs');
-            Cookies.remove('suggestions');
+            //Cookies.remove('suggestions');
             Cookies.remove('breakfast');
             Cookies.remove('lunch');
             Cookies.remove('dinner');
@@ -48,7 +51,7 @@ angular.module('app').factory('mCookies', function() {
             Cookies.remove('medium');
             Cookies.remove('hard');
             Cookies.remove('omitted');
-            Cookies.remove('hasequipment');
+            Cookies.remove('excludeequipment');
         }
     }
 });
