@@ -1,4 +1,4 @@
-angular.module('app').controller('mainController', function($http, $scope, mRecipe, mIngredient, mEquipment, mCookies, mRecipeAPI) {
+angular.module('app').controller('mainController', function($http, $scope, mRecipe, mIngredient, mEquipment, mCookies, $location) {
 
     //Map related
     L.mapbox.accessToken = 'pk.eyJ1IjoiY3BkbGF0bSIsImEiOiJjaWxkZTR1bjgwZWMzdmFtYzd4ajhjcjRnIn0.-y57DqhBHm0jg2-v1JI-UQ';
@@ -14,6 +14,29 @@ angular.module('app').controller('mainController', function($http, $scope, mReci
         } else if(lat > 45 && lon > -105) {
             return "Eastern Canada";
         }
+    };
+
+    var season = function() {
+        var monthNames = ["January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
+        var d = new Date();
+        var month = monthNames[d.getMonth()]+",";
+        var winter = 'December,January,February';
+        var spring = 'March,April,May';
+        var summer = 'June,July,August';
+        var fall = 'September,October,November';
+        var season = 'unknown';
+        if (winter.indexOf(month) != -1) {
+            season = 'Winter';
+        } else if (spring.indexOf(month) != -1) {
+            season = 'Spring';
+        } else if (summer.indexOf(month) != -1) {
+            season = 'Summer';
+        } else if (fall.indexOf(month) != -1) {
+            season = 'Fall';
+        }
+        return season;
     };
 
     var marker = L.marker([$scope.latitude,$scope.longitude], {
@@ -100,6 +123,7 @@ angular.module('app').controller('mainController', function($http, $scope, mReci
                 $scope.location = res.features[0].place_name;
                 mCookies.create('location', $scope.location);
                 $scope.$apply();
+                location.reload();
             });
     };
 
@@ -300,7 +324,7 @@ angular.module('app').controller('mainController', function($http, $scope, mReci
         if(filterOmitIngredients(recipe) === true || filterExcludedEquipment(recipe) === true) {
             return false;
         }
-        return filterIngredients(recipe) || filterDifficulty(recipe) && filterMealtype(recipe);
+        return filterIngredients(recipe) || filterDifficulty(recipe) && filterMealtype(recipe) && filterSeason(recipe);
     };
 
     function noFilter(filterObj) {
@@ -366,6 +390,18 @@ angular.module('app').controller('mainController', function($http, $scope, mReci
         for(var j = 0; j < equipment.length; j++) {
             equipment[j] = equipment[j].replace(/\s/g, '');
             if($scope.excludeequipment.indexOf(equipment[j]) > -1) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    function filterSeason(recipe) {
+        var rSeason = recipe.season.split(",");
+        var cSeason = season();
+        for(var j = 0; j < rSeason.length; j++) {
+            rSeason[j] = rSeason[j].replace(/\s/g, '');
+            if(cSeason.indexOf(rSeason[j]) > -1) {
                 return true;
             }
         }
