@@ -48,6 +48,7 @@ exports.updateIngredient = function(req, res) {
 
     req.ingredients.name = ingredientUpdates.name;
     req.ingredients.local = ingredientUpdates.local;
+    req.ingredients.season = ingredientUpdates.season;
 
     req.ingredients.save(function(err) {
         if(err) {

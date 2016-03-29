@@ -25,14 +25,12 @@
                 tr
                     th Name
                     th Difficulty
-                    th Season
                     th Meal Type
                     th Delete
             tbody
                 tr(ng-repeat="recipe in recipes")
                     td {{recipe.name}}
                     td {{recipe.difficulty}}
-                    td {{recipe.season}}
                     td {{recipe.meal_type}}
                     td
                         button.btn.btn-custom-exclude(type='button', ng-click="deleterecipe(recipe._id)") Delete
@@ -44,11 +42,13 @@
                 tr
                     th Name
                     th Region
+                    th Season
                     th Delete
             tbody
                 tr(ng-repeat="ingredient in ingredients")
                     td {{ingredient.name}}
                     td {{ingredient.local}}
+                    td {{ingredient.season}}
                     td
                         button.btn.btn-custom-exclude(type='button', ng-click="deleteingredient(ingredient._id)") Delete
     .row

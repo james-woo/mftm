@@ -155,8 +155,12 @@ angular.module('app').controller('mainController', function($http, $scope, mReci
             $scope.ingredients = ingredients;
             var userIngredients = [];
             var userRegion = region($scope.latitude, $scope.longitude);
+            var userSeason = season();
             for(var i = 0; i < ingredients.length; i++) {
-                if(ingredients[i].local == userRegion) {
+                console.log(userSeason);
+                ingredients[i].season = ingredients[i].season.replace(/\s/g, '');
+                console.log(ingredients[i].season);
+                if(ingredients[i].local == userRegion && ingredients[i].season.indexOf(userSeason) > -1) {
                     userIngredients.push(ingredients[i].name);
                 }
             }
@@ -324,7 +328,7 @@ angular.module('app').controller('mainController', function($http, $scope, mReci
         if(filterOmitIngredients(recipe) === true || filterExcludedEquipment(recipe) === true) {
             return false;
         }
-        return filterIngredients(recipe) || filterDifficulty(recipe) && filterMealtype(recipe) && filterSeason(recipe);
+        return filterIngredients(recipe) || filterDifficulty(recipe) && filterMealtype(recipe);
     };
 
     function noFilter(filterObj) {
@@ -390,18 +394,6 @@ angular.module('app').controller('mainController', function($http, $scope, mReci
         for(var j = 0; j < equipment.length; j++) {
             equipment[j] = equipment[j].replace(/\s/g, '');
             if($scope.excludeequipment.indexOf(equipment[j]) > -1) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    function filterSeason(recipe) {
-        var rSeason = recipe.season.split(",");
-        var cSeason = season();
-        for(var j = 0; j < rSeason.length; j++) {
-            rSeason[j] = rSeason[j].replace(/\s/g, '');
-            if(cSeason.indexOf(rSeason[j]) > -1) {
                 return true;
             }
         }

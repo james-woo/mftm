@@ -59,7 +59,6 @@ exports.updateRecipe = function(req, res) {
     req.recipes.difficulty = recipeUpdates.difficulty;
     req.recipes.ingredients = recipeUpdates.ingredients;
     req.recipes.equipment = recipeUpdates.equipment;
-    req.recipes.season = recipeUpdates.season;
     req.recipes.meal_type = recipeUpdates.meal_type;
     req.recipes.img_url = recipeUpdates.meal_type;
 

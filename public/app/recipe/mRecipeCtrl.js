@@ -5,9 +5,7 @@ recipeCtrl.controller('mRecipeCtrl', function($scope, mRecipeAPI, mRecipe, $loca
         value: 'easy'
     };
     $scope.create = function() {
-        var seasons = [$scope.season.winter, $scope.season.spring, $scope.season.summer, $scope.season.fall];
         var mealtype= [$scope.mealtype.breakfast, $scope.mealtype.lunch, $scope.mealtype.dinner, $scope.mealtype.snacks];
-        seasons = seasons.filter(function(n){ return n != undefined });
         mealtype = mealtype.filter(function(n){ return n != undefined });
         var newRecipeData = {
             name: $scope.name,
@@ -16,7 +14,6 @@ recipeCtrl.controller('mRecipeCtrl', function($scope, mRecipeAPI, mRecipe, $loca
             difficulty: $scope.difficulty.value,
             ingredients: $scope.ingredients,
             equipment: $scope.equipment,
-            season: seasons,
             meal_type: mealtype,
             img_url: $scope.img_url
         };
@@ -43,7 +40,6 @@ recipeCtrl.controller('mRecipeShowCtrl', function($scope, $http, $routeParams, $
             difficulty: recipe.difficulty,
             ingredients: recipe.ingredients,
             equipment: recipe.equipment,
-            season: recipe.season,
             meal_type: recipe.meal_type,
             img_url: recipe.img_url
         };

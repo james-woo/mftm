@@ -7,7 +7,6 @@ var recipeSchema = mongoose.Schema({
     difficulty: {type:String, required:'{PATH} is required!'},
     equipment: {type:String, required:'{PATH} is required!'},
     ingredients: {type:String, required:'{PATH} is required!'},
-    season: {type:String, required:'{PATH} is required!'},
     meal_type: {type:String, required:'{PATH} is required!'},
     img_url: {type:String, required:'{PATH} is required!'}
 });
@@ -23,7 +22,6 @@ function createDefaultRecipes() {
                 difficulty: 'Medium',
                 equipment: 'Oven, Pan',
                 ingredients: 'Mongoose, Salt',
-                season: 'Winter',
                 meal_type: 'Dinner',
                 img_url: 'http://i.livescience.com/images/i/000/041/113/iFF/boo-zoo-album-10-mongoose-101028.jpg?1320190518'
             });
@@ -34,7 +32,6 @@ function createDefaultRecipes() {
                 difficulty: 'Easy',
                 equipment: 'Oven, Pan',
                 ingredients: 'Water',
-                season: 'Winter',
                 meal_type: 'Breakfast',
                 img_url: 'http://www.e-health101.com/wp-content/uploads/2013/01/Glass-of-Water.jpg'
             });
