@@ -157,9 +157,7 @@ angular.module('app').controller('mainController', function($http, $scope, mReci
             var userRegion = region($scope.latitude, $scope.longitude);
             var userSeason = season();
             for(var i = 0; i < ingredients.length; i++) {
-                console.log(userSeason);
                 ingredients[i].season = ingredients[i].season.replace(/\s/g, '');
-                console.log(ingredients[i].season);
                 if(ingredients[i].local == userRegion && ingredients[i].season.indexOf(userSeason) > -1) {
                     userIngredients.push(ingredients[i].name);
                 }
